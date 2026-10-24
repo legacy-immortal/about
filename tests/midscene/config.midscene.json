@@ -1,0 +1,13 @@
+{
+  "name": "legacyimmortal-about-midscene",
+  "interfaces": {
+    "camoufox": {
+      "type": "camoufox",
+      "headless": true
+    }
+  },
+  "testDirectory": "tests/midscene/suites",
+  "reportsDirectory": "tests/midscene/reports",
+  "baseUrl": "http://localhost:5173/about",
+  "fixtures": "tests/fixtures/about"
+}
