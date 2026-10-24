@@ -9,7 +9,7 @@ const COPY = {
    emailLabel: "Email Address ❧",
    yourKeyLabel: "Your key ❧",
    keyHint: "Save it. Use one for yourself or give keys to friends and family. ❧",
-   buttonText: "Generate Key ❧",
+   buttonText: "Join the waitlist ❧",
 } as const;
 
 const generateSchema = z.object({

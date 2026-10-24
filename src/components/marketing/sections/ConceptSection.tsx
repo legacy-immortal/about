@@ -19,7 +19,7 @@ export function ConceptSection() {
             <VStack maxW="6xl" mx="auto" gap="16" align="stretch">
                <VStack textAlign="center" gap="6">
                   <Heading color="fg" _dark={{ color: mkt.primary }}>
-                     The Archive ❧
+                     How it works ❧
                   </Heading>
                   <Box
                      maxW="3xl"
@@ -37,10 +37,10 @@ export function ConceptSection() {
                         fontSize="lg"
                         lineHeight="relaxed"
                      >
-                        Legacy Immortal is designed as a federated, self-sovereign digital archive.
-                        No single server owns your data. This document outlines the proposed
-                        federated architecture: identity, signed actions, and cross-node
-                        recognition.
+                        Legacy Immortal is a federated, self-sovereign digital archive. No single
+                        server owns your data — you hold your own cryptographic identity, and every
+                        action you take (a memorial post, a photo upload, a message) is signed with
+                        your key so it can never be forged or taken from you.
                      </Text>
                   </Box>
                </VStack>
@@ -67,7 +67,7 @@ export function ConceptSection() {
                            >
                               <GiKey size={20} aria-hidden />
                            </Box>
-                           Digital Sovereignty ❧
+                           Your own identity ❧
                         </Heading>
                         <Text
                            color="fg"
@@ -75,11 +75,10 @@ export function ConceptSection() {
                            fontSize="sm"
                            lineHeight="relaxed"
                         >
-                           Each node in the network is an ActivityPub actor with its own
-                           cryptographic identity. An actor document (JSON-LD) exposes a stable ID,
-                           inbox and outbox URLs, and a public key (RSA). You control your key pair;
-                           the system never holds identity on your behalf. Identity proofs document
-                           that a given actor controls a self-sovereign identity.
+                           Every user is an actor with their own cryptographic key pair — the same
+                           kind of public-key infrastructure that secures the web. You control the
+                           keys; the platform never holds your identity on your behalf. What you
+                           publish carries your signature, so it's provably yours, forever.
                         </Text>
                      </VStack>
                   </Card>
@@ -105,7 +104,7 @@ export function ConceptSection() {
                            >
                               <GiScrollQuill size={20} aria-hidden />
                            </Box>
-                           Self-Signed Actions ❧
+                           Every action signed ❧
                         </Heading>
                         <Text
                            color="fg"
@@ -113,11 +112,10 @@ export function ConceptSection() {
                            fontSize="sm"
                            lineHeight="relaxed"
                         >
-                           All outbound activities (e.g. Create, Note) are signed using HTTP
-                           Signatures. The signature covers the request target, host, date, and
-                           digest of the body. Receivers can verify authenticity and integrity with
-                           the actor's public key. Signed action proofs document that actions are
-                           non-repudiable and tamper-evident.
+                           Every outbound action — a memorial post, a note, an upload — is
+                           cryptographically signed. Recipients verify it with your public key, so
+                           your words and media are tamper-evident and non-repudiable. An audit
+                           trail you own, not one a platform can delete.
                         </Text>
                      </VStack>
                   </Card>
@@ -143,7 +141,7 @@ export function ConceptSection() {
                            >
                               <GiLockers size={20} aria-hidden />
                            </Box>
-                           Federation, ingest & peer replication ❧
+                           Federated & peer-replicated ❧
                         </Heading>
                         <Text
                            color="fg"
@@ -151,12 +149,10 @@ export function ConceptSection() {
                            fontSize="sm"
                            lineHeight="relaxed"
                         >
-                           Nodes register remote actors for ActivityPub delivery on origins such as
-                           legacyimmortal.com or your self-host. When you publish, signed activities
-                           reach follower inboxes. Receiving nodes verify HTTP Signatures and ingest
-                           content locally. That is the fediverse (social ledger)—not permanence.
-                           Peer replication (p2pMirror) copies estate artifacts to authorized nodes;
-                           that is the only correct use of “mirror” here.
+                           Nodes speak ActivityPub (the fediverse protocol), so your memorials and
+                           posts reach your followers' inboxes wherever they're hosted. Peer
+                           replication copies your estate artifacts to authorized nodes — permanence
+                           through redundancy, not a single point of failure.
                         </Text>
                      </VStack>
                   </Card>
@@ -182,7 +178,7 @@ export function ConceptSection() {
                            >
                               <GiLockPicking size={20} aria-hidden />
                            </Box>
-                           Authentication & Verification ❧
+                           Verified authentication ❧
                         </Heading>
                         <Text
                            color="fg"
@@ -190,11 +186,10 @@ export function ConceptSection() {
                            fontSize="sm"
                            lineHeight="relaxed"
                         >
-                           Verification uses the actor document's public key: parse the Signature
-                           header, reconstruct the canonical signature string, and verify with RSA.
-                           On success, content is stored and mirrored; on failure, the request is
-                           rejected. Replay resistance is provided by digest and date in the signed
-                           headers.
+                           Authentication uses your actor document's public key. Signatures are
+                           reconstructed and verified with RSA — valid content is stored, invalid
+                           requests are rejected. Replay resistance comes from signed digest and
+                           date headers. Security baked into every request, not bolted on.
                         </Text>
                      </VStack>
                   </Card>
@@ -220,7 +215,7 @@ export function ConceptSection() {
                            >
                               <GiLockedDoor size={20} aria-hidden />
                            </Box>
-                           Self-Hosted or Hosted by Us ❧
+                           Self-host or host with us ❧
                         </Heading>
                         <Text
                            color="fg"
@@ -228,11 +223,10 @@ export function ConceptSection() {
                            fontSize="sm"
                            lineHeight="relaxed"
                         >
-                           The core handshake can run entirely on a local network (localhost or
-                           LAN). Two nodes—e.g. a workstation and a spare device—can prove identity,
-                           signed actions, and cross-node recognition without depending on public
-                           infrastructure. The same protocol scales to wider federation when
-                           desired.
+                           The core protocol runs entirely on your local network if you want —
+                           prove identity, sign actions, and recognize peers across devices without
+                           public infrastructure. Scale to wider federation when you're ready, or
+                           let us host it for you. Your choice, your terms.
                         </Text>
                      </VStack>
                   </Card>

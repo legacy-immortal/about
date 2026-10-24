@@ -6,10 +6,10 @@ import { Card } from "../../ui/Card";
 import InvitationForm from "./InvitationForm";
 
 const COPY = {
-   title: "Alpha Access ❧",
+   title: "Pre-alpha access ❧",
    description:
-      "Generate a key to join the pre-alpha. You are free to generate more than one key, but only five keys are available per day; you may generate and claim all five. We encourage you to give keys to friends and family. You will be able to claim your key once the pre-alpha is live. Your email address will only be used to send you your key and to contact you when the pre-alpha is live.",
-   formHeading: "Generate ❧",
+      "Legacy Immortal is in pre-alpha. Join our waitlist and we'll reach out as invites open. Tell us what matters most to you — your memories, your family history, your digital assets — so we can shape the platform around what you value.",
+   formHeading: "Join the waitlist ❧",
    dailyLimitHeading: "Daily Limit ❧",
    dailyLimitValue: "5",
    dailyLimitSubtext: "Keys per day ❧",

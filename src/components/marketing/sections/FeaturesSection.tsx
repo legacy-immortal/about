@@ -5,34 +5,46 @@ import type { IconType } from "react-icons";
 import { GiLockedChest, GiMartyrMemorial, GiThreeKeys, GiTiedScroll } from "react-icons/gi";
 
 const COPY = {
-   title: "What is Legacy Immortal? ❧",
-   subTitle: "Features ❧",
+   title: "Permanent digital legacy ❧",
+   subTitle: "Built for permanence ❧",
    description:
-      "Legacy Immortal is a project to reclaim your digital identity (our memories, stories, experiences, etc. stored as images, videos, text, etc..., that is to say, your stuff) as a legacy, not as data. We are an experiment in achieving immortality, not through the false transhumanist promise of eternal life, but through community, memory and cooperation. Our platform allows you to digitally sign your photos, videos, posts, social media content, etc. and authenticate them as your own. With our digital asset management system you can control who sees what, when under what circumstances. Your stuff (your photos, videos, posts, social media content, etc.) will live on a node in a federated private social network of your own creation, hosted either by you on your own computer or by us. It is a secret and secure vault reinforced by your social graph: the more connections you make, the more friends and family you bring on, the more permanence and resilience your stuff has. It's preservation becomes a collective effort and responsibility. Our promise: No algorithms, no selling data, no expiration dates. Your activity is undersigned and authenticated with your signature as an assertion of it's authenticity not an audit trail. You decide who, when, and how other users can interact with you and your stuff. Hosted accounts start with a single origin copy; peer replication and self-hosting unlock the full permanence story.",
+      "Legacy Immortal lets you archive, authenticate, and pass on your digital life — photos, writing, messages, and assets — on your own terms. Your content lives in a federated network you control, hosted by you or by us, with no algorithms, no data sales, and no expiration dates.",
    items: [
       {
-         title: "Time Capsules ❧",
+         title: "Sign & authenticate your content",
          description:
-            "Schedule content to unlock at specific dates, anniversaries, or life events. Create personalized content that activates and releases in a certain sequence or order at a special time or event.",
-         icon: GiTiedScroll,
-      },
-      {
-         title: "Memorial Pages ❧",
-         description:
-            "Build a permanent memorial with stories, photos, and timelines. Share with family and friends, or keep it private until a moment of your choosing.",
-         icon: GiMartyrMemorial,
-      },
-      {
-         title: "Digital Vault ❧",
-         description:
-            "Import and preserve everything with our digital asset management system. Connect your social accounts, archive your digital life, and maintain a single source of truth for your legacy.",
+            "Digitally sign photos, writing, posts, and media so every item carries cryptographic proof of authorship — an assertion of authenticity you control, not just an audit trail.",
          icon: GiLockedChest,
       },
       {
-         title: "Succession & Keys ❧",
+         title: "Memorial spaces",
          description:
-            "Designate successors, create cryptographic keys, OTPs, and deadman's locks for your stuff. Ensure your digital assets transfer securely to the right people at the right time. No, you can't take it with you but you can give it to those you trust.",
+            "Build permanent memorials with stories, photos, and timelines. Invite family and friends with fine-grained roles (owner, steward, viewer), or keep a space private until you choose.",
+         icon: GiMartyrMemorial,
+      },
+      {
+         title: "Digital vault & asset management",
+         description:
+            "Archive your full digital life in a secure vault with role-based access control. Manage who sees what, when, and under what circumstances.",
          icon: GiThreeKeys,
+      },
+      {
+         title: "Succession & dead man's switches",
+         description:
+            "Designate successors, set up cryptographic keys, OTPs, and dead man's locks so your assets transfer securely to the people you trust — when it matters.",
+         icon: GiTiedScroll,
+      },
+      {
+         title: "Import from anywhere",
+         description:
+            "Bring your history over from Ghost, WordPress, Substack, Tumblr, Instagram, Facebook archives, Neocities, GEDCOM, RSS, and more — one import, one source of truth.",
+         icon: GiLockedChest,
+      },
+      {
+         title: "Peer replication & self-hosting",
+         description:
+            "Replicate your archive across trusted peers via ActivityPub federation and Hyperdrive P2P mirroring. Self-host on your own hardware or let us host it — permanence through redundancy.",
+         icon: GiMartyrMemorial,
       },
    ] satisfies Array<{ title: string; description: string; icon: IconType }>,
 } as const;

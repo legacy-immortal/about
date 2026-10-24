@@ -40,25 +40,27 @@ interface PlanData {
 const COPY = {
    title: "Pricing ❧",
    description:
-      "Features are available on a pay-as-you-go basis. The free tier leaves resilience, permanence, and redundancy up to you; paid tiers add increasing levels of each plus storage we host.",
+      "Choose how you want to host and preserve your archive. The free tier is self-hosted — resilience, permanence, and redundancy are yours to manage. Paid tiers add hosted storage, automated backups, and priority support.",
    plans: [
       {
          value: "free",
          title: "Free ❧",
          description:
-            "You are responsible for resilience, permanence, and redundancy. We provide the tools; you choose where and how to store your data.",
+            "Self-hosted on your own storage. We provide the sovereignty and federation tools; you manage backup, durability, and redundancy.",
          features: [
             {
-               label: "Self-hosted or your storage",
+               label: "Self-hosted archive",
                infoText: "Backup and durability are your responsibility",
             },
             {
-               label: "We provide the tools for sovereignty and federation, you choose where and how to store your data",
+               label: "Sovereignty & federation tools included",
             },
             {
-               label: "The resilience, permanence and redundancy of your archive is the responsibility of you and your community",
+               label: "Import from any supported platform",
             },
-            { label: "Easily prepare and export your archive anytime" },
+            {
+               label: "Export your archive anytime",
+            },
          ],
          priceCurrency: "US",
          priceSymbol: "$",
@@ -70,15 +72,15 @@ const COPY = {
          value: "vault",
          title: "Vault ❧",
          description:
-            "We host your archive with baseline resilience and redundancy. Suitable for personal legacies.",
+            "We host your archive with baseline resilience and redundancy — ideal for personal legacies.",
          features: [
             {
                label: "50GB fast storage, 500GB cold storage",
-               infoText: "We replicate and back up your data to multiple regions",
+               infoText: "We replicate and back up your data across multiple regions",
             },
-            { label: "Baseline resilience and redundancy" },
             { label: "Scheduled automated backups" },
-            { label: "Priority support and assistance" },
+            { label: "Baseline resilience & redundancy" },
+            { label: "Priority support & assistance" },
          ],
          priceCurrency: "US",
          priceSymbol: "$",
@@ -91,14 +93,15 @@ const COPY = {
          value: "archive",
          title: "Archive ❧",
          description:
-            "Higher resilience, permanence, and redundancy with more storage. For families, estates and long-term legacies.",
+            "Maximum resilience, permanence, and redundancy with generous storage — for families, estates, and long-term legacies.",
          features: [
             {
                label: "500GB fast storage, 5000GB cold storage",
                infoText: "Multi-region replication",
             },
-            { label: "The maximum resilience and redundancy we can provide" },
-            { label: "Dedicated account support and assistance" },
+            { label: "Maximum resilience & redundancy" },
+            { label: "Dedicated account support & assistance" },
+            { label: "Multi-region replication" },
          ],
          priceCurrency: "US",
          priceSymbol: "$",
@@ -109,7 +112,7 @@ const COPY = {
    ] satisfies PlanData[],
    customPlanTitle: "Need a custom plan?",
    customPlanDescription:
-      "We offer custom pricing for institutions and large estates. Talk to us about your needs.",
+      "We offer custom pricing for institutions and large estates. Tell us about your needs.",
    customPlanCta: "Reach out ❧",
 } as const;
 

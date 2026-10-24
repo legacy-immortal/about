@@ -4,10 +4,10 @@ import { Box, Container, Heading, Text, VStack } from "@chakra-ui/react";
 import { Button } from "../ui/Button";
 
 const COPY = {
-   title: "Reclaim Your Digital Legacy ❧",
+   title: "Build Your Legacy ❧",
    description:
-      "Join the pre-alpha and begin reclaiming your digital story. Design your first memorial, create your first time capsule, or import your archive. Your legacy starts now.",
-   buttonText: "Request Pre-Alpha Access ❧",
+      "Join the pre-alpha waitlist today. Create your first memorial, import your digital archive, or set up your estate. Your legacy starts now — on your terms.",
+   buttonText: "Join the waitlist ❧",
    buttonHref: "#invitation",
 } as const;
 

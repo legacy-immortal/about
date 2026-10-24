@@ -8,12 +8,12 @@ const NautilusShell = lazy(() => import("./NautilusShell"));
 
 const COPY = {
    title: "Legacy Immortal ❧",
-   subtitle: "An infinite, replicating, living archive of your digital legacy ❧",
+   subtitle: "Your digital life, preserved — forever.",
    description:
-      "Sovereign, secure, federated. With self-hosting and peer replication enabled, your archive can outlast any single operator. Hosted-only accounts keep a single origin copy until you add peers.",
-   primaryButtonText: "Request Access ❧",
+      "A self-sovereign archive for your memories, stories, and digital assets. Sign and authenticate your content, designate successors, and replicate across peers so your legacy outlives any single server. No algorithms. No data sales. No expiration dates.",
+   primaryButtonText: "Request Pre-Alpha Access ❧",
    primaryButtonHref: "#invitation",
-   secondaryButtonText: "Learn More ❧",
+   secondaryButtonText: "See how it works ❧",
    secondaryButtonHref: "#features",
 } as const;
 
