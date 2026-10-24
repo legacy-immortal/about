@@ -12,7 +12,7 @@ const BRAND_INITIALS = "LI";
 const CTA_TEXT = "Get Alpha Access";
 const CTA_HREF = "#invitation";
 
-const MARKETING_PATH = "/marketing";
+const ABOUT_PATH = "/about";
 
 const NAV_LINKS = [
    { label: "Features", href: "#features" },
@@ -26,12 +26,12 @@ export function Header() {
    const currentPath = useRouterState({ select: (s) => s.location.pathname });
 
    const processedNavLinks = useMemo(() => {
-      const isMarketingHome =
-         currentPath === MARKETING_PATH || currentPath === `${MARKETING_PATH}/`;
+      const isAboutHome =
+         currentPath === ABOUT_PATH || currentPath === `${ABOUT_PATH}/`;
 
       return NAV_LINKS.map((link) => {
-         if (link.href.startsWith("#") && !isMarketingHome) {
-            return { ...link, href: `${MARKETING_PATH}${link.href}` };
+         if (link.href.startsWith("#") && !isAboutHome) {
+            return { ...link, href: `${ABOUT_PATH}${link.href}` };
          }
          return link;
       });
@@ -61,7 +61,7 @@ export function Header() {
                   _dark={{ _hover: { opacity: 0.9 } }}
                   transition="opacity 0.3s ease"
                >
-                  <RouterLink to={MARKETING_PATH}>
+                  <RouterLink to={ABOUT_PATH}>
                   <Box
                      width="8"
                      height="8"

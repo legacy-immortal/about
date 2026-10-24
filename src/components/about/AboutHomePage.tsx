@@ -9,7 +9,7 @@ import { InvitationSection } from "./sections/Invitation/InvitationSection";
 import { PricingSection } from "./sections/PricingSection";
 import { WhatWeAreNotSection } from "./sections/WhatWeAreNotSection";
 
-export function MarketingHomePage() {
+export function AboutHomePage() {
    return (
       <AppLayout>
          <HeroSection />

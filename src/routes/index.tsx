@@ -1,15 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { DashboardProvider } from "~/contexts";
-import { MarketingHomePage } from "../components/marketing/MarketingHomePage";
+import { AboutHomePage } from "../components/about/AboutHomePage";
 
-function MarketingIndexRoute() {
+function AboutIndexRoute() {
    return (
       <DashboardProvider>
-         <MarketingHomePage />
+         <AboutHomePage />
       </DashboardProvider>
    );
 }
 
 export const Route = createFileRoute("/")({
-   component: MarketingIndexRoute,
+   component: AboutIndexRoute,
 });

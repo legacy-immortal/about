@@ -9,3 +9,5 @@ coverage/
 .env.*.local
 routeTree.gen.ts
 *.localtest-results/
+
+test-results/

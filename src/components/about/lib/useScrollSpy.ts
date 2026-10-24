@@ -1,7 +1,7 @@
 /**
  * Tracks which section id is under the fixed header — component-local state only,
  * never written to `location.hash` (see `scrollToSection`).
- * @module routes/marketing/-lib/useScrollSpy
+ * @module routes/about/-lib/useScrollSpy
  **/
 import { useEffect, useState } from "react";
 import { HEADER_OFFSET_PX } from "./headerOffset";

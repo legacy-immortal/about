@@ -4,7 +4,7 @@ import { IconButton } from "@chakra-ui/react";
 import { GiKey, GiNautilusShell } from "react-icons/gi";
 import { useColorMode } from "~/components/ui/theme/color-mode";
 
-/** Marketing header toggle — uses app-wide ColorModeProvider (same key as dashboard). */
+/** About header toggle — uses app-wide ColorModeProvider (same key as dashboard). */
 export default function ThemeSwitcher() {
    const { colorMode, setColorMode } = useColorMode();
 

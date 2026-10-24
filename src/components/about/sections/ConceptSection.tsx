@@ -1,6 +1,6 @@
 "use client";
 
-import { mkt } from "~/components/marketing/lib/colors";
+import { mkt } from "~/components/about/lib/colors";
 
 import { Box, Container, Heading, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import {

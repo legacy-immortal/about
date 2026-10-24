@@ -1,7 +1,7 @@
 /**
- * In-page marketing nav targets. Alpha Access / invitation is intentionally absent —
- * see `docs/documentation/marketing-integration.md` (alpha invite flow removed).
- * @module routes/marketing/-lib/navSections
+ * In-page about nav targets. Alpha Access / invitation is intentionally absent —
+ * see `docs/documentation/about-integration.md` (alpha invite flow removed).
+ * @module routes/about/-lib/navSections
  **/
 export interface NavSection {
    id: string;

@@ -1,13 +1,13 @@
-/* Marketing-only styles — scoped to [data-marketing-site] so dashboard Chakra UI is unaffected.
+/* About-only styles — scoped to [data-about-site] so dashboard Chakra UI is unaffected.
    Color mode: html.light / html.dark from ~/components/ui/color-mode (ColorModeProvider). */
 
-[data-marketing-site] {
-  --marketing-text-primary: #073642;
-  --marketing-text-secondary: #586e75;
-  --marketing-text-muted: #657b83;
-  --marketing-accent: #b58900;
-  --marketing-accent-secondary: #cb4b16;
-  --marketing-bg: #fdf6e3;
+[data-about-site] {
+  --about-text-primary: #073642;
+  --about-text-secondary: #586e75;
+  --about-text-muted: #657b83;
+  --about-accent: #b58900;
+  --about-accent-secondary: #cb4b16;
+  --about-bg: #fdf6e3;
 
   font-family: "Inter", "Avenir Next", "Helvetica Neue", sans-serif;
   font-weight: 400;
@@ -24,13 +24,13 @@
     color 0.3s ease;
 }
 
-html.light [data-marketing-site] {
-  --marketing-bg: #fdf6e3;
-  --marketing-text-primary: #073642;
-  --marketing-text-secondary: #586e75;
-  --marketing-text-muted: #657b83;
-  --marketing-accent: #b58900;
-  --marketing-accent-secondary: #cb4b16;
+html.light [data-about-site] {
+  --about-bg: #fdf6e3;
+  --about-text-primary: #073642;
+  --about-text-secondary: #586e75;
+  --about-text-muted: #657b83;
+  --about-accent: #b58900;
+  --about-accent-secondary: #cb4b16;
 
   background-color: #fdf6e3;
   background-image:
@@ -47,16 +47,16 @@ html.light [data-marketing-site] {
       rgba(0, 0, 0, 0) 18px,
       rgba(0, 0, 0, 0) 19px
     );
-  color: var(--marketing-text-primary);
+  color: var(--about-text-primary);
 }
 
-html.dark [data-marketing-site] {
-  --marketing-bg: #053d48;
-  --marketing-text-primary: #454a94;
-  --marketing-text-secondary: #adbcbc;
-  --marketing-text-muted: #718b90;
-  --marketing-accent: #0096f5;
-  --marketing-accent-secondary: #39c7b9;
+html.dark [data-about-site] {
+  --about-bg: #053d48;
+  --about-text-primary: #454a94;
+  --about-text-secondary: #adbcbc;
+  --about-text-muted: #718b90;
+  --about-accent: #0096f5;
+  --about-accent-secondary: #39c7b9;
 
   --chakra-colors-fg: #4d52a5;
   --chakra-colors-fg-muted: #adbcbc;
@@ -66,23 +66,23 @@ html.dark [data-marketing-site] {
   color: #4d52a5 !important;
 }
 
-html:has([data-marketing-site]) {
+html:has([data-about-site]) {
   scroll-behavior: smooth;
 }
 
-html.dark [data-marketing-site] [data-heading] {
+html.dark [data-about-site] [data-heading] {
   color: #4d52a5 !important;
 }
 
-html.dark [data-marketing-site] [data-theme-backdrop] {
+html.dark [data-about-site] [data-theme-backdrop] {
   background: rgba(0, 43, 54, 0.95) !important;
 }
 
-[data-marketing-site] .serif {
+[data-about-site] .serif {
   font-family: "Crimson Text", "EB Garamond", "Times New Roman", serif;
 }
 
-[data-marketing-site] .mono {
+[data-about-site] .mono {
   font-family:
     "Fira Code", "JetBrains Mono", "Source Code Pro", "Monaco", "Menlo", "Consolas", monospace;
 }
@@ -98,120 +98,120 @@ html.dark [data-marketing-site] [data-theme-backdrop] {
   }
 }
 
-html.dark [data-marketing-site] .terminal-cursor::after {
+html.dark [data-about-site] .terminal-cursor::after {
   content: "█";
   animation: terminal-cursor 2.5s infinite;
   color: inherit;
   opacity: 0.8;
 }
 
-html.dark [data-marketing-site] .text-terminal-glow {
+html.dark [data-about-site] .text-terminal-glow {
   text-shadow:
     0 0 5px rgba(226, 232, 240, 0.4),
     0 0 10px rgba(226, 232, 240, 0.2);
 }
 
-/* Flat design within marketing pages only */
-[data-marketing-site] * {
+/* Flat design within about pages only */
+[data-about-site] * {
   border: none !important;
   border-radius: 0 !important;
   box-shadow: none !important;
 }
 
-[data-marketing-site] [data-variant="outline"] {
+[data-about-site] [data-variant="outline"] {
   border-width: 1px !important;
   border-style: solid !important;
   border-color: currentColor !important;
 }
 
-[data-marketing-site] input,
-[data-marketing-site] textarea,
-[data-marketing-site] select {
+[data-about-site] input,
+[data-about-site] textarea,
+[data-about-site] select {
   background: transparent;
   border-bottom: 1px solid currentColor;
   opacity: 0.8;
   transition: opacity 0.3s ease;
 }
 
-[data-marketing-site] input:focus,
-[data-marketing-site] textarea:focus,
-[data-marketing-site] select:focus {
+[data-about-site] input:focus,
+[data-about-site] textarea:focus,
+[data-about-site] select:focus {
   outline: none;
   opacity: 1;
 }
 
-[data-marketing-site] .text-primary,
-[data-marketing-site] .text-fg {
-  color: var(--marketing-text-primary);
+[data-about-site] .text-primary,
+[data-about-site] .text-fg {
+  color: var(--about-text-primary);
 }
 
-[data-marketing-site] .text-secondary,
-[data-marketing-site] .text-fg-secondary {
-  color: var(--marketing-text-secondary);
+[data-about-site] .text-secondary,
+[data-about-site] .text-fg-secondary {
+  color: var(--about-text-secondary);
 }
 
-[data-marketing-site] .text-muted {
-  color: var(--marketing-text-muted);
+[data-about-site] .text-muted {
+  color: var(--about-text-muted);
 }
 
-html.light [data-marketing-site] .opacity-90 {
+html.light [data-about-site] .opacity-90 {
   opacity: 0.85;
 }
 
-html.light [data-marketing-site] .opacity-80 {
+html.light [data-about-site] .opacity-80 {
   opacity: 0.75;
 }
 
-html.light [data-marketing-site] .opacity-70 {
+html.light [data-about-site] .opacity-70 {
   opacity: 0.65;
 }
 
-html.light [data-marketing-site] [data-theme-backdrop] {
+html.light [data-about-site] [data-theme-backdrop] {
   background: rgba(253, 246, 227, 0.85) !important;
 }
 
-html.dark [data-marketing-site] [data-theme-backdrop] {
+html.dark [data-about-site] [data-theme-backdrop] {
   background: rgba(5, 61, 72, 0.95) !important;
 }
 
-html.dark [data-marketing-site] header[data-header],
-html.dark [data-marketing-site] [data-header] {
+html.dark [data-about-site] header[data-header],
+html.dark [data-about-site] [data-header] {
   background-color: rgba(5, 61, 72, 0.95) !important;
   backdrop-filter: blur(12px) !important;
 }
 
-html.light [data-marketing-site] header[data-header],
-html.light [data-marketing-site] [data-header] {
+html.light [data-about-site] header[data-header],
+html.light [data-about-site] [data-header] {
   background-color: rgba(253, 246, 227, 0.95) !important;
   backdrop-filter: blur(12px) !important;
 }
 
-html.dark [data-marketing-site] footer[data-footer],
-html.dark [data-marketing-site] [data-footer] {
+html.dark [data-about-site] footer[data-footer],
+html.dark [data-about-site] [data-footer] {
   background-color: rgba(5, 61, 72, 0.95) !important;
   backdrop-filter: blur(8px) !important;
 }
 
-html.light [data-marketing-site] footer[data-footer],
-html.light [data-marketing-site] [data-footer] {
+html.light [data-about-site] footer[data-footer],
+html.light [data-about-site] [data-footer] {
   background-color: rgba(253, 246, 227, 0.95) !important;
   backdrop-filter: blur(8px) !important;
 }
 
-html.light [data-marketing-site] .drop-shadow-sm {
+html.light [data-about-site] .drop-shadow-sm {
   text-shadow:
     0 1px 3px rgba(7, 54, 66, 0.3),
     0 2px 6px rgba(7, 54, 66, 0.2);
 }
 
-html.dark [data-marketing-site] .drop-shadow-sm {
+html.dark [data-about-site] .drop-shadow-sm {
   text-shadow:
     0 1px 3px rgba(5, 61, 72, 0.8),
     0 2px 6px rgba(5, 61, 72, 0.6);
 }
 
 @media (max-height: 700px) {
-  [data-marketing-site] [data-hero-content] {
+  [data-about-site] [data-hero-content] {
     align-items: flex-start;
     padding-top: 1.5rem;
     padding-bottom: 2rem;

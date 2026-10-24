@@ -1,4 +1,4 @@
-/* Midscene E2E test for Legacy Immortal marketing site.
+/* Midscene E2E test for Legacy Immortal about site.
  * Verifies: hero section, features section, CTA section, and Chakra UI styles.
  * Uses human-click to prove events carry isTrusted === true (real person interaction).
  *
@@ -9,9 +9,9 @@
 import { describe, expect, it } from 'bun:test'
 import midscene from '@midscenedev/midscene'
 
-const BASE_URL = 'file://' import.meta.url.replace(/\/[^/]*$/, '') + '/fixtures/marketing/page.html'
+const BASE_URL = 'file://' import.meta.url.replace(/\/[^/]*$/, '') + '/fixtures/about/page.html'
 
-describe('Legacy Immortal Marketing Site', () => {
+describe('Legacy Immortal About Site', () => {
   it('hero section has h1', async () => {
     const scene = await midscene.render(BASE_URL)
     await scene.aiAssert('document.querySelector("h1") !== null', {

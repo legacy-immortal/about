@@ -1,40 +1,40 @@
 /**
- * Playwright test for Legacy Immortal marketing site.
+ * Playwright test for Legacy Immortal about site.
  * Verifies: hero section, features section, CTA section, and Chakra UI styles.
  * Uses page.click() to verify trusted events (real person interaction).
  */
 
 import { test, expect } from '@playwright/test'
 
-const MARKETING_PAGE = new URL('../fixtures/marketing/page.html', import.meta.url).pathname
+const ABOUT_PAGE = new URL('../fixtures/about/page.html', import.meta.url).pathname
 
 test('hero section has h1', async ({ page }) => {
-  await page.goto(MARKETING_PAGE)
+  await page.goto(ABOUT_PAGE)
   await expect(page.locator('h1')).toBeVisible()
   const h1Text = await page.textContent('h1')
   expect(h1Text).toBe('Legacy Immortal')
 })
 
 test('features has 3 subsections', async ({ page }) => {
-  await page.goto(MARKETING_PAGE)
+  await page.goto(ABOUT_PAGE)
   const divs = page.locator('.features > div')
   await expect(divs).toHaveCount(3)
 })
 
 test('CTA section is present', async ({ page }) => {
-  await page.goto(MARKETING_PAGE)
+  await page.goto(ABOUT_PAGE)
   await expect(page.locator('.cta')).toBeVisible()
 })
 
 test('Chakra button element exists', async ({ page }) => {
-  await page.goto(MARKETING_PAGE)
+  await page.goto(ABOUT_PAGE)
   await expect(page.locator('.chakra-button')).toBeVisible()
   const buttonText = await page.textContent('.chakra-button')
   expect(buttonText).toBe('Get Started')
 })
 
 test('human click on CTA button produces trusted events', async ({ page }) => {
-  await page.goto(MARKETING_PAGE)
+  await page.goto(ABOUT_PAGE)
 
   // Capture console events during the click
   const events: any[] = []

@@ -1,36 +1,36 @@
 /**
- * In-page section navigation for the marketing SPA.
+ * In-page section navigation for the about SPA.
  * Uses sessionStorage + scrollIntoView — never writes hashes into the URL bar.
  */
 
-export const MARKETING_SECTION_IDS = ["features", "concept", "pricing"] as const;
-export type MarketingSectionId = (typeof MARKETING_SECTION_IDS)[number];
+export const ABOUT_SECTION_IDS = ["features", "concept", "pricing"] as const;
+export type AboutSectionId = (typeof ABOUT_SECTION_IDS)[number];
 
-const STORAGE_KEY = "legacy-marketing-section";
+const STORAGE_KEY = "legacy-about-section";
 
 /** Fixed header clearance for scroll-margin / IntersectionObserver rootMargin. */
-export const MARKETING_HEADER_OFFSET_PX = 72;
+export const ABOUT_HEADER_OFFSET_PX = 72;
 
-export function isMarketingSectionId(value: string | null | undefined): value is MarketingSectionId {
+export function isAboutSectionId(value: string | null | undefined): value is AboutSectionId {
    return (
       typeof value === "string" &&
-      (MARKETING_SECTION_IDS as readonly string[]).includes(value)
+      (ABOUT_SECTION_IDS as readonly string[]).includes(value)
    );
 }
 
-export function readStoredSection(): MarketingSectionId | null {
+export function readStoredSection(): AboutSectionId | null {
    if (typeof window === "undefined") {
       return null;
    }
    try {
       const raw = sessionStorage.getItem(STORAGE_KEY);
-      return isMarketingSectionId(raw) ? raw : null;
+      return isAboutSectionId(raw) ? raw : null;
    } catch {
       return null;
    }
 }
 
-export function storeSection(id: MarketingSectionId | null): void {
+export function storeSection(id: AboutSectionId | null): void {
    if (typeof window === "undefined") {
       return;
    }
@@ -58,7 +58,7 @@ export function clearLocationHash(): void {
 }
 
 export function scrollToSection(
-   id: MarketingSectionId,
+   id: AboutSectionId,
    opts?: { behavior?: ScrollBehavior; store?: boolean },
 ): void {
    if (typeof document === "undefined") {

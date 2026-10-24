@@ -2,7 +2,7 @@ import { Alert, Box, Field, Input, Text, VStack } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useInvitation } from "~/components/marketing/lib/hooks/useInvitation";
+import { useInvitation } from "~/components/about/lib/hooks/useInvitation";
 import { Button } from "../../ui/Button";
 
 const COPY = {

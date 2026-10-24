@@ -1,4 +1,4 @@
-/* test_marketing.c — clicktests for the Legacy Immortal marketing site.
+/* test_about.c — clicktests for the Legacy Immortal about site.
  *
  * Verifies: hero section, features section, CTA section, and Chakra UI styles.
  * Uses human_click to prove events carry isTrusted === true (real person interaction).
@@ -18,7 +18,7 @@
 #include "harness.h"
 
 #define TEST_URL \
-  "file:///mnt/data/workspace/legacyimmortal/legacyimmortal-marketing/tests/fixtures/marketing/page.html"
+  "file:///mnt/data/workspace/legacyimmortal/legacyimmortal-about/tests/fixtures/about/page.html"
 
 /* Evaluates `expr` and hands back the parsed JSON node. Caller frees the node. */
 static camoufoxkit_json_t *eval_json(juggler_t *s, const char *session, const char *expr) {
@@ -199,15 +199,15 @@ static void test_human_click(void) {
 
 int main(void) {
   if (juggler_default_browser() == NULL) {
-    printf("test_marketing: SKIP (no camoufox build found; set $CAMOUFOXKIT_BROWSER)\n");
+    printf("test_about: SKIP (no camoufox build found; set $CAMOUFOXKIT_BROWSER)\n");
     return 0;
   }
-  printf("== build/test_marketing\n");
+  printf("== build/test_about\n");
 
   test_hero_section();
   test_features_sections();
   test_cta_section();
   test_chakra_styles();
   test_human_click();
-  return tk_done("test_marketing");
+  return tk_done("test_about");
 }

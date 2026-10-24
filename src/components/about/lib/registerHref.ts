@@ -1,8 +1,8 @@
 /**
- * Apex sign-up destination for marketing CTAs — the alpha-invite generate/claim flow
- * was removed (see `docs/documentation/marketing-integration.md`); CTAs go straight
+ * Apex sign-up destination for about CTAs — the alpha-invite generate/claim flow
+ * was removed (see `docs/documentation/about-integration.md`); CTAs go straight
  * to registration.
- * @module routes/marketing/-lib/registerHref
+ * @module routes/about/-lib/registerHref
  **/
 import { DASHBOARD_BASEPATH } from "~/constants";
 import { getApexAppHref } from "~/lib/shared/promoHost";

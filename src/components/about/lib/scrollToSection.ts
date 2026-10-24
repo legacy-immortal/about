@@ -1,7 +1,7 @@
 /**
  * Smooth-scrolls to an in-page section without touching `location.hash` — keeps the
  * address bar clean while still landing under the fixed header.
- * @module routes/marketing/-lib/scrollToSection
+ * @module routes/about/-lib/scrollToSection
  **/
 import { HEADER_OFFSET_PX } from "./headerOffset";
 

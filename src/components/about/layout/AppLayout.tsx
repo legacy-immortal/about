@@ -12,12 +12,12 @@ interface AppLayoutProps {
 const HEADER_OFFSET = "4.5rem";
 
 /**
- * Marketing page chrome. Wrapper `data-marketing-site` scopes `marketing.css` so flat
+ * About page chrome. Wrapper `data-about-site` scopes `about.css` so flat
  * Solarized styling does not leak into dashboard routes (see scoped `*` rules in CSS).
  */
 export function AppLayout({ children }: AppLayoutProps) {
    return (
-      <div data-marketing-site="">
+      <div data-about-site="">
          <Header />
          <main style={{ flex: 1, minHeight: "100vh", paddingTop: HEADER_OFFSET }}>{children}</main>
          <Footer />
