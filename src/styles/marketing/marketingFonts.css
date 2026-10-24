@@ -1,0 +1,10 @@
+/**
+ * Marketing-only faces.
+ * Crimson Text (roman + italic, 400/600) served via Google Fonts.
+ *
+ * The previous @font-face chain pulled ./fonts/crimson-text/latin-*.css, which
+ * reference ./files/*.woff2 binaries that were never vendored in this repo.
+ * Those URLs 404 in production (including on GitHub Pages), so they are
+ * replaced with a working web font source.
+ */
+@import url("https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&display=swap");

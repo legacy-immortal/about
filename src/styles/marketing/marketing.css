@@ -1,0 +1,220 @@
+/* Marketing-only styles — scoped to [data-marketing-site] so dashboard Chakra UI is unaffected.
+   Color mode: html.light / html.dark from ~/components/ui/color-mode (ColorModeProvider). */
+
+[data-marketing-site] {
+  --marketing-text-primary: #073642;
+  --marketing-text-secondary: #586e75;
+  --marketing-text-muted: #657b83;
+  --marketing-accent: #b58900;
+  --marketing-accent-secondary: #cb4b16;
+  --marketing-bg: #fdf6e3;
+
+  font-family: "Inter", "Avenir Next", "Helvetica Neue", sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.015em;
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  background-attachment: fixed;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+html.light [data-marketing-site] {
+  --marketing-bg: #fdf6e3;
+  --marketing-text-primary: #073642;
+  --marketing-text-secondary: #586e75;
+  --marketing-text-muted: #657b83;
+  --marketing-accent: #b58900;
+  --marketing-accent-secondary: #cb4b16;
+
+  background-color: #fdf6e3;
+  background-image:
+    radial-gradient(
+      1200px 700px at 50% 0%,
+      rgba(238, 232, 213, 0.9) 0%,
+      rgba(253, 246, 227, 0.95) 55%,
+      rgba(253, 246, 227, 1) 100%
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(7, 54, 66, 0.02) 0px,
+      rgba(7, 54, 66, 0.02) 1px,
+      rgba(0, 0, 0, 0) 18px,
+      rgba(0, 0, 0, 0) 19px
+    );
+  color: var(--marketing-text-primary);
+}
+
+html.dark [data-marketing-site] {
+  --marketing-bg: #053d48;
+  --marketing-text-primary: #454a94;
+  --marketing-text-secondary: #adbcbc;
+  --marketing-text-muted: #718b90;
+  --marketing-accent: #0096f5;
+  --marketing-accent-secondary: #39c7b9;
+
+  --chakra-colors-fg: #4d52a5;
+  --chakra-colors-fg-muted: #adbcbc;
+  --chakra-colors-fg-subtle: #718b90;
+
+  background-color: #053d48 !important;
+  color: #4d52a5 !important;
+}
+
+html:has([data-marketing-site]) {
+  scroll-behavior: smooth;
+}
+
+html.dark [data-marketing-site] [data-heading] {
+  color: #4d52a5 !important;
+}
+
+html.dark [data-marketing-site] [data-theme-backdrop] {
+  background: rgba(0, 43, 54, 0.95) !important;
+}
+
+[data-marketing-site] .serif {
+  font-family: "Crimson Text", "EB Garamond", "Times New Roman", serif;
+}
+
+[data-marketing-site] .mono {
+  font-family:
+    "Fira Code", "JetBrains Mono", "Source Code Pro", "Monaco", "Menlo", "Consolas", monospace;
+}
+
+@keyframes terminal-cursor {
+  0%,
+  70% {
+    opacity: 1;
+  }
+  71%,
+  100% {
+    opacity: 0.6;
+  }
+}
+
+html.dark [data-marketing-site] .terminal-cursor::after {
+  content: "█";
+  animation: terminal-cursor 2.5s infinite;
+  color: inherit;
+  opacity: 0.8;
+}
+
+html.dark [data-marketing-site] .text-terminal-glow {
+  text-shadow:
+    0 0 5px rgba(226, 232, 240, 0.4),
+    0 0 10px rgba(226, 232, 240, 0.2);
+}
+
+/* Flat design within marketing pages only */
+[data-marketing-site] * {
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+[data-marketing-site] [data-variant="outline"] {
+  border-width: 1px !important;
+  border-style: solid !important;
+  border-color: currentColor !important;
+}
+
+[data-marketing-site] input,
+[data-marketing-site] textarea,
+[data-marketing-site] select {
+  background: transparent;
+  border-bottom: 1px solid currentColor;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+[data-marketing-site] input:focus,
+[data-marketing-site] textarea:focus,
+[data-marketing-site] select:focus {
+  outline: none;
+  opacity: 1;
+}
+
+[data-marketing-site] .text-primary,
+[data-marketing-site] .text-fg {
+  color: var(--marketing-text-primary);
+}
+
+[data-marketing-site] .text-secondary,
+[data-marketing-site] .text-fg-secondary {
+  color: var(--marketing-text-secondary);
+}
+
+[data-marketing-site] .text-muted {
+  color: var(--marketing-text-muted);
+}
+
+html.light [data-marketing-site] .opacity-90 {
+  opacity: 0.85;
+}
+
+html.light [data-marketing-site] .opacity-80 {
+  opacity: 0.75;
+}
+
+html.light [data-marketing-site] .opacity-70 {
+  opacity: 0.65;
+}
+
+html.light [data-marketing-site] [data-theme-backdrop] {
+  background: rgba(253, 246, 227, 0.85) !important;
+}
+
+html.dark [data-marketing-site] [data-theme-backdrop] {
+  background: rgba(5, 61, 72, 0.95) !important;
+}
+
+html.dark [data-marketing-site] header[data-header],
+html.dark [data-marketing-site] [data-header] {
+  background-color: rgba(5, 61, 72, 0.95) !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+html.light [data-marketing-site] header[data-header],
+html.light [data-marketing-site] [data-header] {
+  background-color: rgba(253, 246, 227, 0.95) !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+html.dark [data-marketing-site] footer[data-footer],
+html.dark [data-marketing-site] [data-footer] {
+  background-color: rgba(5, 61, 72, 0.95) !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+html.light [data-marketing-site] footer[data-footer],
+html.light [data-marketing-site] [data-footer] {
+  background-color: rgba(253, 246, 227, 0.95) !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+html.light [data-marketing-site] .drop-shadow-sm {
+  text-shadow:
+    0 1px 3px rgba(7, 54, 66, 0.3),
+    0 2px 6px rgba(7, 54, 66, 0.2);
+}
+
+html.dark [data-marketing-site] .drop-shadow-sm {
+  text-shadow:
+    0 1px 3px rgba(5, 61, 72, 0.8),
+    0 2px 6px rgba(5, 61, 72, 0.6);
+}
+
+@media (max-height: 700px) {
+  [data-marketing-site] [data-hero-content] {
+    align-items: flex-start;
+    padding-top: 1.5rem;
+    padding-bottom: 2rem;
+    min-height: calc(100vh - 4.5rem);
+  }
+}

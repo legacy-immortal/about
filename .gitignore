@@ -1,0 +1,11 @@
+node_modules/
+dist/
+dist-*/
+.cache/
+*.log
+coverage/
+*.tsbuildinfo
+.env.local
+.env.*.local
+routeTree.gen.ts
+*.localtest-results/
