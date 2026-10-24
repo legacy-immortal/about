@@ -11,7 +11,6 @@ import {
   captureDiagnostics, 
   assertWithDiagnostics, 
   waitForSelectorWithDiagnostics,
-  navigateWithDiagnostics,
   clickWithDiagnostics,
   evalWithDiagnostics,
   createContext,
@@ -36,6 +35,41 @@ export interface PersonaWalkthroughResult {
   totalDurationMs: number;
 }
 
+const BASE_URL = 'http://localhost:5173/about';
+
+/**
+ * Navigate to URL via evaluateJavaScript
+ */
+async function navigateToUrl(iface: CamoufoxMidsceneInterface, url: string, context: DiagnosticContext): Promise<void> {
+  try {
+    await iface.evaluateJavaScript<void>(`window.location.href = "${url}"`);
+    await new Promise(r => setTimeout(r, 2000));
+  } catch (err) {
+    const diag = await captureDiagnostics(iface, { ...context, step: `navigate(${url})`, url });
+    const errorMsg = [
+      `NAVIGATION FAILED: ${url}`,
+      `Error: ${err instanceof Error ? err.message : String(err)}`,
+      `Test: ${context.testName}`,
+      '',
+      '--- DIAGNOSTICS ---',
+      `Screenshot captured: ${diag.screenshot ? 'yes' : 'no'}`,
+      `DOM length: ${diag.details?.domLength || 0} chars`,
+      `Console logs: ${diag.details?.consoleLogCount || 0}`,
+      `Network errors: ${diag.details?.networkErrorCount || 0}`,
+      '',
+      '--- CONSOLE LOGS (last 30) ---',
+      ...(diag.consoleLogs?.slice(-30).map(l => `  ${l}`) || ['(none)']),
+      '',
+      '--- NETWORK ERRORS ---',
+      ...(diag.networkErrors?.map(e => `  ${e}`) || ['(none)']),
+      '',
+      '--- DOM SNAPSHOT (first 10000 chars) ---',
+      diag.domSnapshot?.slice(0, 10000) || '(none)',
+    ].join('\n');
+    throw new Error(errorMsg);
+  }
+}
+
 /**
  * Execute a single persona action
  */
@@ -47,8 +81,7 @@ async function executeAction(
 ): Promise<void> {
   switch (action.type) {
     case 'navigate': {
-      const baseUrl = 'http://localhost:5173';
-      await navigateWithDiagnostics(agent, iface, `${baseUrl}${action.url}`, context);
+      await navigateToUrl(iface, `${BASE_URL}${action.url}`, context);
       break;
     }
     case 'click': {

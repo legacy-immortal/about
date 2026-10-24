@@ -19,16 +19,30 @@ describe('About Site – trusted human click via Midscene + Camoufox', { timeout
   });
 
   it('CTA button click produces isTrusted === true events', async () => {
-    await agent.navigate(BASE_URL);
-    await agent.waitForSelector('.chakra-button', { timeout: 15000 });
-    await agent.click('.chakra-button');
-    const trace = await agent.eval('window.__trace || []');
+    await iface.evaluateJavaScript<void>(`window.location.href = "${BASE_URL}"`);
+    await new Promise(r => setTimeout(r, 3000));
+    
+    // Inject trace capture
+    await iface.evaluateJavaScript<void>(`
+      window.__trace = [];
+      ['click', 'mousemove', 'mouseup', 'mousedown'].forEach(type => {
+        document.addEventListener(type, e => {
+          window.__trace.push({ type, isTrusted: e.isTrusted, target: e.target.tagName, time: Date.now() });
+        }, true);
+      });
+    `);
+    
+    // Click via agent (uses midscene's aiClick which goes through inputPrimitives)
+    await agent.aiClick('.chakra-button');
+    await new Promise(r => setTimeout(r, 1000));
+    
+    const trace = await iface.evaluateJavaScript<any[]>('window.__trace || []');
     expect(Array.isArray(trace)).toBe(true);
-    const types = trace.map((e: any) => e.type);
+    const types = trace.map(e => e.type);
     expect(types).toContain('click');
     expect(types).toContain('mousemove');
     expect(types).toContain('mouseup');
-    const allTrusted = trace.every((e: any) => e.isTrusted === true);
+    const allTrusted = trace.every(e => e.isTrusted === true);
     expect(allTrusted).toBe(true);
   });
 });

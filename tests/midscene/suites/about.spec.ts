@@ -25,14 +25,17 @@ describe('Legacy Immortal About Site – Midscene + Camoufox', { timeout: 120000
   });
 
   it('hero h1 is present', async () => {
-    await agent.navigate(BASE_URL);
-    const hasH1 = await agent.eval('document.querySelector("h1") !== null');
+    // Navigate via evaluateJavaScript
+    await iface.evaluateJavaScript<void>(`window.location.href = "${BASE_URL}"`);
+    await new Promise(r => setTimeout(r, 2000));
+    const hasH1 = await iface.evaluateJavaScript<boolean>('document.querySelector("h1") !== null');
     expect(hasH1).toBe(true);
   });
 
   it('features section has 3 subsections', async () => {
-    await agent.navigate(BASE_URL);
-    const count = await agent.eval('document.querySelectorAll(".features > div").length');
+    await iface.evaluateJavaScript<void>(`window.location.href = "${BASE_URL}"`);
+    await new Promise(r => setTimeout(r, 2000));
+    const count = await iface.evaluateJavaScript<number>('document.querySelectorAll(".features > div").length');
     expect(count).toBe(3);
   });
 });
