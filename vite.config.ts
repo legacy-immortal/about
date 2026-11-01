@@ -6,7 +6,7 @@ import { resolve } from "node:path";
 const pkgRoot = resolve(__dirname);
 
 export default defineConfig({
-   base: "/",
+   base: "/legacyimmortal-about/",
    plugins: [
       TanStackRouterVite({
          target: "react",
