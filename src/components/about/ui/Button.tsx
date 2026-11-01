@@ -35,110 +35,20 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       },
       ref,
    ) => {
-      const chakraVariant: "solid" | "outline" | "ghost" | "subtle" =
-         variant === "primary"
-            ? "solid"
-            : variant === "outline" || variant === "cta"
-              ? "outline"
-              : variant === "ghost"
-                ? "ghost"
-                : "subtle";
-      const colorPalette = variant === "primary" ? "primary" : undefined;
-
-      // Base styles for legibility: theme-aligned backgrounds and text
-      const baseStyles = {
-         fontFamily: "mono" as const,
-         fontWeight: "semibold" as const,
-         lineHeight: "1" as const,
-         display: "inline-flex" as const,
-         alignItems: "center" as const,
-         justifyContent: "center" as const,
-         transition: "background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease",
-         ...(variant === "primary" && {
-            bg: "black",
-            color: "bg",
-            _dark: { bg: "primary.accent", color: "bg" },
-         }),
-         ...(variant === "outline" && {
-            bg: "transparent",
-            color: "black",
-            borderWidth: "1px",
-            borderStyle: "solid",
-            borderColor: "black",
-            _dark: { color: "fg", borderColor: "primary.accent" },
-         }),
-         ...(variant === "cta" && {
-            bg: "transparent",
-            color: "fg",
-            borderWidth: "1px",
-            borderStyle: "solid",
-            borderColor: "fg",
-            _dark: { color: "fg", borderColor: "fg" },
-         }),
-         ...(variant === "ghost" && {
-            bg: "transparent",
-            color: "black",
-            _dark: { color: "fg" },
-         }),
-         ...(variant === "secondary" && {
-            bg: "black",
-            color: "bg",
-            _dark: { bg: "bg", color: "fg" },
-         }),
-      };
-
-      // Hover: theme-aligned feedback without layout shifts
-      const hoverStyles = {
-         ...(variant === "primary" && {
-            bg: "black",
-            color: "bg",
-            _dark: { bg: "primary.500", color: "bg" },
-         }),
-         ...(variant === "outline" && {
-            bg: "black",
-            color: "bg",
-            borderColor: "black",
-            _dark: { bg: "bg", color: "fg", borderColor: "primary.accent" },
-         }),
-         ...(variant === "cta" && {
-            bg: "fg",
-            color: "bg",
-            borderColor: "fg",
-            _dark: { bg: "primary.accent", color: "bg", borderColor: "primary.accent" },
-         }),
-         ...(variant === "ghost" && {
-            bg: "black",
-            color: "bg",
-            _dark: { bg: "bg", color: "fg" },
-         }),
-         ...(variant === "secondary" && {
-            bg: "black",
-            color: "bg",
-            _dark: { bg: "fg.subtle", color: "fg" },
-         }),
-      };
-
       const commonProps = {
          ref,
-         variant: chakraVariant,
+         variant,
          size,
-         colorPalette,
          disabled: disabled || loading,
          loading,
-         className,
+         className: className ? `${className} surreal-button` : "surreal-button",
          "data-variant": variant,
-         ...baseStyles,
-         _hover: { ...hoverStyles },
+         ...props,
       };
 
       if (as) {
          return (
-            <ChakraButton
-               as={as}
-               {...commonProps}
-               _hover={{ ...hoverStyles, textDecoration: "none" }}
-               {...(props as any)}
-            >
+            <ChakraButton as={as} {...commonProps} {...(props as any)}>
                {children}
             </ChakraButton>
          );
@@ -146,20 +56,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
       if (href) {
          return (
-            <ChakraButton
-               as="a"
-               href={href}
-               {...commonProps}
-               _hover={{ ...hoverStyles, textDecoration: "none" }}
-               {...(props as any)}
-            >
+            <ChakraButton as="a" href={href} {...commonProps} {...(props as any)}>
                {children}
             </ChakraButton>
          );
       }
 
       return (
-         <ChakraButton {...commonProps} onClick={onClick} {...props}>
+         <ChakraButton {...commonProps} onClick={onClick} {...(props as any)}>
             {children}
          </ChakraButton>
       );

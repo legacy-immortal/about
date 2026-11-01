@@ -9,7 +9,7 @@ import { useRouterState } from "@tanstack/react-router";
 import { isBrowserOnOfficialPromoHost } from "~/lib/shared/promoHost";
 
 export const ABOUT_HOME = "/";
-export const ABOUT_COMPAT_PATH = "/about";
+export const ABOUT_COMPAT_PATH = "/";
 
 export interface AboutHomeState {
    isAboutHome: boolean;

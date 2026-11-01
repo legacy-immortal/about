@@ -1,21 +1,16 @@
 "use client";
 
 import { lazy, Suspense } from "react";
-import { Box, Container, Flex, Heading, Text, VStack } from "@chakra-ui/react";
+import { Box, Container, Flex, VStack } from "@chakra-ui/react";
 import { Button } from "../../ui/Button";
+import { AboutHeading } from "../../ui/Heading";
+import { AboutText } from "../../ui/Text";
+import { loadContent } from "../../lib/contentLoader";
 
 const NautilusShell = lazy(() => import("./NautilusShell"));
 
-const COPY = {
-   title: "Legacy Immortal ❧",
-   subtitle: "Your digital life, preserved — forever.",
-   description:
-      "A self-sovereign archive for your memories, stories, and digital assets. Sign and authenticate your content, designate successors, and replicate across peers so your legacy outlives any single server. No algorithms. No data sales. No expiration dates.",
-   primaryButtonText: "Request Pre-Alpha Access ❧",
-   primaryButtonHref: "#invitation",
-   secondaryButtonText: "See how it works ❧",
-   secondaryButtonHref: "#features",
-} as const;
+const content = loadContent();
+const hero = content.hero?.frontmatter || {};
 
 export function HeroSection() {
    return (
@@ -46,20 +41,20 @@ export function HeroSection() {
          >
             <Container maxW="container.lg" px="4" textAlign="center">
                <VStack maxW="3xl" mx="auto" gap="8">
-                  <Heading
+                  <AboutHeading
                      as="h1"
                      mb="8"
                      color="fg"
                      _dark={{ color: "fg" }}
                      fontSize={{ base: "3xl", md: "5xl", lg: "6xl" }}
-                     fontFamily="serif"
                      fontWeight="bold"
+                     fontFamily="serif"
                      letterSpacing="wider"
                   >
-                     {COPY.title}
-                  </Heading>
+                     {hero.title || "Legacy Immortal ❧"}
+                  </AboutHeading>
 
-                  <Text
+                  <AboutText
                      mb="6"
                      maxW="xl"
                      mx="auto"
@@ -68,10 +63,10 @@ export function HeroSection() {
                      _dark={{ color: "fg" }}
                      fontSize="md"
                   >
-                     {COPY.subtitle}
-                  </Text>
+                     {hero.subtitle || "Your digital life, preserved — forever."}
+                  </AboutText>
 
-                  <Text
+                  <AboutText
                      mb="8"
                      maxW="2xl"
                      mx="auto"
@@ -80,8 +75,8 @@ export function HeroSection() {
                      _dark={{ color: "fg.muted" }}
                      fontSize="md"
                   >
-                     {COPY.description}
-                  </Text>
+                     {hero.description || ""}
+                  </AboutText>
 
                   <Flex
                      direction={{ base: "column", sm: "row" }}
@@ -90,11 +85,11 @@ export function HeroSection() {
                      align="center"
                      mb="12"
                   >
-                     <Button href={COPY.primaryButtonHref} variant="primary" size="md">
-                        {COPY.primaryButtonText}
+                     <Button href={hero.primaryButtonHref || "#invitation"} variant="primary" size="md">
+                        {hero.primaryButtonText || "Get Early Access ❧"}
                      </Button>
-                     <Button href={COPY.secondaryButtonHref} variant="outline" size="md">
-                        {COPY.secondaryButtonText}
+                     <Button href={hero.secondaryButtonHref || "#features"} variant="outline" size="md">
+                        {hero.secondaryButtonText || "See how it works ❧"}
                      </Button>
                   </Flex>
                </VStack>

@@ -11,3 +11,5 @@ routeTree.gen.ts
 *.localtest-results/
 
 test-results/
+e2e/out/
+refs/

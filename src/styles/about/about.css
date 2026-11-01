@@ -8,6 +8,9 @@
   --about-accent: #b58900;
   --about-accent-secondary: #cb4b16;
   --about-bg: #fdf6e3;
+  --about-border: #586e75;
+  --about-radius: 2px;
+  --about-shadow: 0 12px 32px -8px rgba(7, 54, 66, 0.06);
 
   font-family: "Inter", "Avenir Next", "Helvetica Neue", sans-serif;
   font-weight: 400;
@@ -17,6 +20,7 @@
   display: flex;
   flex-direction: column;
   margin: 0;
+  scroll-behavior: smooth;
   padding: 0;
   background-attachment: fixed;
   transition:
@@ -31,6 +35,9 @@ html.light [data-about-site] {
   --about-text-muted: #657b83;
   --about-accent: #b58900;
   --about-accent-secondary: #cb4b16;
+  --about-border: #586e75;
+  --about-radius: 2px;
+  --about-shadow: 0 12px 32px -8px rgba(7, 54, 66, 0.06);
 
   background-color: #fdf6e3;
   background-image:
@@ -57,6 +64,9 @@ html.dark [data-about-site] {
   --about-text-muted: #718b90;
   --about-accent: #0096f5;
   --about-accent-secondary: #39c7b9;
+  --about-border: #839496;
+  --about-radius: 2px;
+  --about-shadow: 0 12px 32px -8px rgba(226, 232, 240, 0.06);
 
   --chakra-colors-fg: #4d52a5;
   --chakra-colors-fg-muted: #adbcbc;
@@ -111,13 +121,21 @@ html.dark [data-about-site] .text-terminal-glow {
     0 0 10px rgba(226, 232, 240, 0.2);
 }
 
-/* Flat design within about pages only */
+/* Flat design within about pages only — reset box model, but preserve
+   component borders so cards and outline buttons keep their definition. */
 [data-about-site] * {
-  border: none !important;
   border-radius: 0 !important;
-  box-shadow: none !important;
 }
 
+/* Cards use drop shadows + thin solarized borders for definition. */
+[data-about-site] .surreal-card,
+[data-about-site] [class*="surreal-card"] {
+  box-shadow: var(--about-shadow) !important;
+  border: 1px solid var(--about-border) !important;
+  border-radius: var(--about-radius) !important;
+}
+
+/* Outline buttons keep their border. */
 [data-about-site] [data-variant="outline"] {
   border-width: 1px !important;
   border-style: solid !important;

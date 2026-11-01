@@ -1,46 +1,45 @@
 "use client";
 
-import { mkt } from "~/components/about/lib/colors";
+import { Box, Container, VStack } from "@chakra-ui/react";
+import { AboutHeading } from "../ui/Heading";
+import { AboutText } from "../ui/Text";
+import { loadContent } from "../lib/contentLoader";
 
-import { Box, Container, Heading, Text, VStack } from "@chakra-ui/react";
+const content = loadContent();
+const wwan = content["what-we-are-not"]?.frontmatter || {};
 
 export function WhatWeAreNotSection() {
    return (
-      <Box as="section" id="what-we-are" py="24" scrollMarginTop="6rem">
+      <Box as="section" id="what-we-are" py="32" scrollMarginTop="6rem">
          <Container maxW="container.xl" px="4">
-            <VStack maxW="3xl" mx="auto" gap="8" align="stretch" textAlign="center">
-               <Heading
+            <VStack maxW="5xl" mx="auto" gap="12" align="stretch" textAlign="center">
+               <AboutHeading
                   color="fg"
-                  _dark={{ color: mkt.primary }}
-                  fontSize={{ base: "4xl", md: "5xl" }}
+                  _dark={{ color: "fg" }}
+                  fontSize={{ base: "5xl", md: "7xl" }}
                   fontWeight="bold"
+                  fontFamily="serif"
+                  letterSpacing="normal"
+                  lineHeight="1.3"
                >
-                  What we are, and what we are not ❧
-               </Heading>
+                  {wwan.title || "What we are, and what we are not ❧"}
+               </AboutHeading>
                <Box
-                  maxW="3xl"
+                  maxW="4xl"
                   mx="auto"
                   px={{ base: 4, md: 8 }}
-                  py={6}
+                  py={8}
                   borderWidth="1px"
-                  borderColor="border"
-                  borderRadius="lg"
-                  _dark={{ borderColor: "fg.subtle", bg: "bg/50" }}
+                  borderColor="var(--about-border)"
+                  borderRadius="xl"
+                  _dark={{ borderColor: "var(--about-border)", bg: "bg/50" }}
                   textAlign="left"
                >
-                  <Text color="fg" _dark={{ color: "fg.muted" }} fontSize="lg" lineHeight="relaxed">
-                     We are not a social media app, and we are not a data broker. Your browsing
-                     history, your purchases, your messages, your photos — these are not products
-                     to be sold, mined, or monetized. You will not be surveilled, nudged, traded
-                     for, geofenced, radicalized, upsold, or manipulated by algorithms designed to
-                     reduce you to a data point.
-                  </Text>
-                  <Text color="fg" _dark={{ color: "fg.muted" }} fontSize="lg" lineHeight="relaxed">
-                     We believe the true horror of death is being forgotten. So we build something
-                     different: a digital mausoleum and a living memorial. A place to preserve your
-                     stories and memories as they are known by you, your friends, and your family —
-                     your story, told on your terms, passed to the people you love.
-                  </Text>
+                  <VStack gap="6">
+                     <AboutText color="fg" _dark={{ color: "fg.muted" }} fontSize="lg" lineHeight="1.8">
+                        {wwan.body || ""}
+                     </AboutText>
+                  </VStack>
                </Box>
             </VStack>
          </Container>

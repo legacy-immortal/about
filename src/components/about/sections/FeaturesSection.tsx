@@ -1,53 +1,23 @@
 "use client";
 
-import { Box, Container, HStack, Heading, SimpleGrid, Text, VStack } from "@chakra-ui/react";
+import { Box, Container, HStack, SimpleGrid, VStack } from "@chakra-ui/react";
 import type { IconType } from "react-icons";
-import { GiLockedChest, GiMartyrMemorial, GiThreeKeys, GiTiedScroll } from "react-icons/gi";
+import { resolveIcon } from "../lib/iconMap";
+import { AboutHeading } from "../ui/Heading";
+import { AboutText } from "../ui/Text";
+import { loadContent } from "../lib/contentLoader";
 
-const COPY = {
-   title: "Permanent digital legacy ❧",
-   subTitle: "Built for permanence ❧",
-   description:
-      "Legacy Immortal lets you archive, authenticate, and pass on your digital life — photos, writing, messages, and assets — on your own terms. Your content lives in a federated network you control, hosted by you or by us, with no algorithms, no data sales, and no expiration dates.",
-   items: [
-      {
-         title: "Sign & authenticate your content",
-         description:
-            "Digitally sign photos, writing, posts, and media so every item carries cryptographic proof of authorship — an assertion of authenticity you control, not just an audit trail.",
-         icon: GiLockedChest,
-      },
-      {
-         title: "Memorial spaces",
-         description:
-            "Build permanent memorials with stories, photos, and timelines. Invite family and friends with fine-grained roles (owner, steward, viewer), or keep a space private until you choose.",
-         icon: GiMartyrMemorial,
-      },
-      {
-         title: "Digital vault & asset management",
-         description:
-            "Archive your full digital life in a secure vault with role-based access control. Manage who sees what, when, and under what circumstances.",
-         icon: GiThreeKeys,
-      },
-      {
-         title: "Succession & dead man's switches",
-         description:
-            "Designate successors, set up cryptographic keys, OTPs, and dead man's locks so your assets transfer securely to the people you trust — when it matters.",
-         icon: GiTiedScroll,
-      },
-      {
-         title: "Import from anywhere",
-         description:
-            "Bring your history over from Ghost, WordPress, Substack, Tumblr, Instagram, Facebook archives, Neocities, GEDCOM, RSS, and more — one import, one source of truth.",
-         icon: GiLockedChest,
-      },
-      {
-         title: "Peer replication & self-hosting",
-         description:
-            "Replicate your archive across trusted peers via ActivityPub federation and Hyperdrive P2P mirroring. Self-host on your own hardware or let us host it — permanence through redundancy.",
-         icon: GiMartyrMemorial,
-      },
-   ] satisfies Array<{ title: string; description: string; icon: IconType }>,
-} as const;
+const content = loadContent();
+const features = content.features?.frontmatter || {};
+
+const items: Array<{ title: string; description: string; icon: IconType }> =
+   (features.items as Array<{ title: string; description: string; icon: string }> | undefined)?.map(
+      (item) => ({
+         title: item.title,
+         description: item.description,
+         icon: resolveIcon(item.icon),
+      })
+   ) || [];
 
 export function FeaturesSection() {
    return (
@@ -55,32 +25,40 @@ export function FeaturesSection() {
          <Container maxW="container.xl" px="4">
             <VStack maxW="6xl" mx="auto" gap="16">
                <VStack textAlign="center" mb="12">
-                  <Heading
+                  <AboutHeading
                      color="fg"
                      mb="8"
                      _dark={{ color: "primary.500" }}
                      fontSize={{ base: "4xl", md: "5xl" }}
                      fontWeight="bold"
+                     fontFamily="serif"
                   >
-                     {COPY.title}
-                  </Heading>
-                  <Text color="fg" maxW="3xl" mx="auto" _dark={{ color: "fg.muted" }} fontSize="xl">
-                     {COPY.description}
-                  </Text>
+                     {features.title || "Permanent digital legacy ❧"}
+                  </AboutHeading>
+                  <AboutText
+                     color="fg"
+                     maxW="3xl"
+                     mx="auto"
+                     _dark={{ color: "fg.muted" }}
+                     fontSize="xl"
+                  >
+                     {features.description || ""}
+                  </AboutText>
                </VStack>
 
-               <Heading
+               <AboutHeading
                   as="h3"
                   color="fg"
                   _dark={{ color: "primary.500" }}
                   fontSize="xl"
                   fontWeight="semibold"
+                  fontFamily="serif"
                >
-                  {COPY.subTitle}
-               </Heading>
+                  {features.subTitle || "Built for resilience ❧"}
+               </AboutHeading>
 
                <SimpleGrid columns={{ base: 1, lg: 2 }} gap="12">
-                  {COPY.items.map((item) => {
+                  {items.map((item) => {
                      const ItemIcon = item.icon;
                      return (
                         <Box key={item.title} p="8">
@@ -95,27 +73,28 @@ export function FeaturesSection() {
                                     color="fg"
                                     _dark={{ color: "primary.500" }}
                                  >
-                                    <ItemIcon size={24} aria-hidden />
+                                    <ItemIcon size={40} aria-hidden />
                                  </Box>
                               </Box>
                               <VStack align="flex-start" gap="3">
-                                 <Heading
+                                 <AboutHeading
                                     as="h3"
                                     color="fg"
                                     mb="3"
                                     _dark={{ color: "primary.500" }}
                                     fontSize="xl"
                                     fontWeight="semibold"
+                                    fontFamily="serif"
                                  >
                                     {item.title}
-                                 </Heading>
-                                 <Text
+                                 </AboutHeading>
+                                 <AboutText
                                     color="fg"
                                     lineHeight="relaxed"
                                     _dark={{ color: "fg.muted" }}
                                  >
                                     {item.description}
-                                 </Text>
+                                 </AboutText>
                               </VStack>
                            </HStack>
                         </Box>

@@ -1,6 +1,6 @@
 "use client";
 
-import { Card as ChakraCard } from "@chakra-ui/react";
+import { Card as ChakraCard, type CardProps as ChakraCardProps } from "@chakra-ui/react";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 export interface ChakraCardProps extends Omit<
@@ -20,21 +20,6 @@ const paddingMap = {
    lg: 8,
 };
 
-const variantStyles = {
-   default: {
-      boxShadow: "sm",
-      border: "1px solid",
-      borderColor: "border",
-      _dark: { bg: "bg.800", borderColor: "border.dark", boxShadow: "md" },
-   },
-   outlined: {
-      boxShadow: "none",
-      border: "2px solid",
-      borderColor: "border",
-      _dark: { bg: "bg.800", borderColor: "primary.500" },
-   },
-};
-
 export function Card({
    padding = "md",
    children,
@@ -44,10 +29,10 @@ export function Card({
 }: ChakraCardProps) {
    return (
       <ChakraCard.Root
-         className={className}
+         className={className ? `${className} surreal-card` : "surreal-card"}
          padding={0}
          p={0}
-         {...variantStyles[variant]}
+         variant={variant}
          {...props}
       >
          <ChakraCard.Body p={paddingMap[padding]}>{children}</ChakraCard.Body>

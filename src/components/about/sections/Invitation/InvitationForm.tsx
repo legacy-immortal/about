@@ -4,12 +4,16 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useInvitation } from "~/components/about/lib/hooks/useInvitation";
 import { Button } from "../../ui/Button";
+import { loadContent } from "../../lib/contentLoader";
+
+const content = loadContent();
+const invitation = content.invitation?.frontmatter || {};
 
 const COPY = {
    emailLabel: "Email Address ❧",
-   yourKeyLabel: "Your key ❧",
-   keyHint: "Save it. Use one for yourself or give keys to friends and family. ❧",
-   buttonText: "Join the waitlist ❧",
+   yourKeyLabel: "Your Invite Keys ❧",
+   keyHint: "Five invite keys per email. Use them yourself or give them to friends and family. ❧",
+   buttonText: "Get Invite Keys ❧",
 } as const;
 
 const generateSchema = z.object({
@@ -115,10 +119,10 @@ export default function InvitationForm() {
                {quota ? (
                   <Text fontSize="sm" color="fg" _dark={{ color: "fg.muted" }} width="100%">
                      {quota.canGenerate ? (
-                        <Text _dark={{ color: "fg.muted" }}>{quota.remaining} keys left today</Text>
+                        <Text _dark={{ color: "fg.muted" }}>{quota.remaining} invite keys left</Text>
                      ) : (
                         <Text color="red.500" _dark={{ color: "red.400" }}>
-                           Daily quota reached. Try again tomorrow.
+                           Invite quota reached. Try again tomorrow.
                         </Text>
                      )}
                   </Text>

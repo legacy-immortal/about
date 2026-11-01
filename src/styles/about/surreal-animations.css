@@ -1,0 +1,342 @@
+/*
+ * Surreal & Nostalgic Animations for Legacy Immortal
+ * Inspired by: Voynich manuscripts, House of Leaves, Swann's Way,
+ * de Chirico paintings, polaroids, film reels, Borges labyrinths
+ *
+ * Lightweight, subtle, nostalgic yet surreal. Physical media feel.
+ * Animations trigger on interaction or mount — nothing pulses endlessly.
+ */
+
+/* ── Polaroid develop ──
+   Element appears blank/developing then comes into full focus on mount ──
+*/
+@keyframes polaroid-develop {
+   0% {
+      opacity: 0;
+      filter: grayscale(100%) brightness(0.25);
+      transform: scale(0.96) rotate(-1deg);
+   }
+   100% {
+      opacity: 1;
+      filter: grayscale(0%) brightness(1);
+      transform: scale(1) rotate(0deg);
+   }
+}
+
+.animate-polaroid-develop {
+   animation: polaroid-develop 1.2s ease-out forwards;
+}
+
+/* ── Unblur focus ──
+   Element starts blurred and snaps into focus ──
+*/
+@keyframes unblur-focus {
+   0% { filter: blur(6px); opacity: 0.7; }
+   100% { filter: blur(0px); opacity: 1; }
+}
+
+.animate-unblur-focus {
+   animation: unblur-focus 1.2s ease-out forwards;
+}
+
+/* ── Gentle spiral ──
+   Very slow, minimal rotation — not hypnotic, just a quiet drift ──
+*/
+@keyframes gentle-spiral {
+   0% { transform: rotate(0deg); }
+   100% { transform: rotate(2deg); }
+}
+
+.animate-gentle-spiral {
+   animation: gentle-spiral 10s ease-in-out 3 alternate;
+   animation-fill-mode: forwards;
+}
+
+/* ── Labyrinth border pulse ──
+   Subtle single-pulse on hover, like a maze path lighting up ──
+*/
+@keyframes labyrinth-pulse {
+   0% { box-shadow: inset 0 0 0 0 rgba(181, 137, 0, 0); }
+   100% { box-shadow: inset 0 0 12px 2px rgba(181, 137, 0, 0.12); }
+}
+
+.animate-labyrinth-pulse:hover {
+   animation: labyrinth-pulse 1.2s ease-out forwards;
+}
+
+/* ── Backlighting glow ──
+   Soft inset glow on hover ──
+*/
+@keyframes backlight-glow {
+   0% { box-shadow: inset 0 0 0 0 rgba(181, 137, 0, 0); }
+   100% { box-shadow: inset 0 0 16px 4px rgba(181, 137, 0, 0.1); }
+}
+
+.animate-backlight-glow:hover {
+   animation: backlight-glow 0.5s ease-out forwards;
+}
+
+/* ── Manuscript reveal ──
+   Text reveals left-to-right like a typewriter ──
+*/
+@keyframes manuscript-reveal {
+   0% { clip-path: inset(0 100% 0 0); }
+   100% { clip-path: inset(0 0 0 0); }
+}
+
+.animate-manuscript-reveal {
+   animation: manuscript-reveal 1.5s ease-out forwards;
+}
+
+/* ── Surreal float ──
+   De Chirico-style floating, extremely subtle ──
+*/
+@keyframes surreal-float {
+   0% { transform: translateY(0px); }
+   50% { transform: translateY(-2px); }
+   100% { transform: translateY(0px); }
+}
+
+.animate-surreal-float {
+   animation: surreal-float 5s ease-in-out 3;
+   animation-fill-mode: forwards;
+}
+
+/* ── Link underline grow ──
+   Grows from center on hover ──
+*/
+@keyframes underline-grow {
+   0% { width: 0%; left: 50%; }
+   100% { width: 100%; left: 0%; }
+}
+
+.animate-underline-grow {
+   position: relative;
+   overflow: hidden;
+}
+
+.animate-underline-grow::after {
+   content: "";
+   position: absolute;
+   bottom: -2px;
+   left: 50%;
+   width: 0%;
+   height: 2px;
+   background: var(--about-accent, #b58900);
+   transition: all 0.3s ease-out;
+   transform: translateX(-50%);
+}
+
+.animate-underline-grow:hover::after {
+   width: 100%;
+}
+
+/* ── Breath pulse ──
+   Extremely subtle breathing ──
+*/
+@keyframes breath-pulse {
+   0%, 100% { opacity: 1; }
+   50% { opacity: 0.92; }
+}
+
+.animate-breath-pulse {
+   animation: breath-pulse 8s ease-in-out 3;
+   animation-fill-mode: forwards;
+}
+
+/* ── Selection ──
+   Manuscript feel selection color ──
+*/
+::selection {
+   background: rgba(181, 137, 0, 0.2);
+   color: var(--about-text-primary, #073642);
+}
+
+/* ── Focus ring ──
+   Labyrinth-style focus for accessibility ──
+*/
+.surreal-focus:focus-visible {
+   outline: 2px solid var(--about-accent, #b58900);
+   outline-offset: 3px;
+   border-radius: 3px;
+}
+
+/* ── Surreal card ──
+   Gentle lift + shadow on hover ──
+*/
+.surreal-card {
+   transition: transform 0.25s ease-out, box-shadow 0.25s ease-out, border-color 0.25s ease-out;
+   position: relative;
+   overflow: hidden;
+}
+
+.surreal-card:hover {
+   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+   border-color: var(--about-accent, #b58900);
+   z-index: 5;
+}
+
+/* ── Simple fade ──
+   Slow, gentle fade for header text ──
+*/
+@keyframes simple-fade-in {
+   0% { opacity: 0; }
+   100% { opacity: 1; }
+}
+
+.animate-simple-fade-in {
+   animation: simple-fade-in 1.5s ease-out forwards;
+}
+
+/* ── Header link fade ──
+   Subtle opacity fade on hover ──
+*/
+.surreal-link {
+   display: inline-block;
+   transition: color 0.4s ease-out;
+}
+
+.surreal-link:hover {
+   color: var(--about-accent, #b58900);
+}
+
+/* ── Line height for header text ──
+   Give header links breathing room ──
+*/
+.surreal-link {
+   line-height: 1.6;
+}
+
+/* ── Surreal button ──
+   Physical press feel ──
+*/
+.surreal-button {
+   transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
+   transform-origin: center;
+}
+
+.surreal-button:hover {
+   transform: scale(0.99);
+   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+}
+
+.surreal-button:active {
+   transform: scale(0.97);
+}
+
+/* ── Film develop ──
+   Image blurs in then sharpens ──
+*/
+.film-image {
+   filter: blur(6px);
+   opacity: 0.3;
+   animation: film-develop 1.5s ease-out forwards;
+}
+
+@keyframes film-develop {
+   0% { filter: blur(10px); opacity: 0.2; }
+   100% { filter: blur(0px); opacity: 1; }
+}
+
+/* ── Motion-inspired spring easing ──
+   CSS linear() spring curves for bouncy physical media feel ──
+*/
+:root {
+   --spring-wobbly: linear(0, 0.012, 0.048, 0.108, 0.191, 0.296, 0.421, 0.563, 0.719, 0.881, 1.046, 1.209, 1.365, 1.51, 1.642, 1.76, 1.862, 1.946, 2.011, 2.057, 2.083, 2.09, 2.081, 2.059, 2.025, 1.981, 1.93, 1.874, 1.815, 1.754, 1.692, 1.63, 1.569, 1.508, 1.449, 1.392, 1.336, 1.283, 1.232, 1.184, 1.139, 1.097, 1.058, 1.021, 0.987, 0.955, 0.925, 0.898, 0.873, 0.85, 0.829, 0.81, 0.793, 0.777, 0.763, 0.751, 0.74, 0.731, 0.723, 0.716, 0.71, 0.705, 0.701, 0.698, 0.695, 0.693, 0.691, 0.69, 0.69, 0.69, 0.691, 0.692, 0.694, 0.696, 0.698, 0.701, 0.704, 0.708, 0.712, 0.717, 0.722, 0.728, 0.734, 0.741, 0.748, 0.755, 0.763, 0.771, 0.779, 0.787, 0.796, 0.805, 0.814, 0.823, 0.833, 0.842, 0.852, 0.862, 0.872, 0.882, 0.893, 0.904, 0.915, 0.926, 0.938, 0.949, 0.961, 0.972, 0.984, 0.995, 1);
+   --spring-gentle: linear(0, 0.002, 0.008, 0.019, 0.035, 0.055, 0.079, 0.108, 0.141, 0.179, 0.221, 0.267, 0.317, 0.371, 0.429, 0.49, 0.554, 0.621, 0.69, 0.76, 0.831, 0.902, 0.973, 1.043, 1.112, 1.179, 1.245, 1.309, 1.371, 1.431, 1.489, 1.545, 1.598, 1.649, 1.697, 1.743, 1.786, 1.827, 1.865, 1.9, 1.933, 1.963, 1.991, 2.017, 2.041, 2.064, 2.084, 2.103, 2.12, 2.136, 2.15, 2.163, 2.174, 2.185, 2.194, 2.202, 2.209, 2.215, 2.22, 2.224, 2.228, 2.231, 2.233, 2.235, 2.236, 2.237, 2.238, 2.238, 2.238, 2.237, 2.237, 2.236, 2.234, 2.233, 2.231, 2.229, 2.226, 2.223, 2.22, 2.216, 2.212, 2.208, 2.203, 2.198, 2.192, 2.186, 2.179, 2.172, 2.164, 2.155, 2.146, 2.136, 2.125, 2.114, 2.102, 2.089, 2.075, 2.061, 2.046, 2.031, 2.015, 1.999, 1.982, 1.964, 1.946, 1.927, 1.908, 1.888, 1.868, 1.848, 1.827, 1.806, 1.784, 1.762, 1.739, 1.716, 1.692, 1.668, 1.644, 1.619, 1.594, 1.569, 1.543, 1.518, 1.493, 1.467, 1.442, 1.416, 1.391, 1.365, 1.34, 1.315, 1.291, 1.267, 1.244, 1.221, 1.198, 1.176, 1.155, 1.134, 1.114, 1.094, 1.075, 1.056, 1.038, 1.02, 1.002, 0.985, 0.967, 0.95, 0.933, 0.916, 0.9, 0.884, 0.868, 0.852, 0.837, 0.822, 0.807, 0.793, 0.779, 0.765, 0.752, 0.739, 0.726, 0.714, 0.702, 0.69, 0.679, 0.667, 0.656, 0.645, 0.634, 0.623, 0.613, 0.602, 0.592, 0.582, 0.572, 0.563, 0.554, 0.545, 0.537, 0.529, 0.521, 0.514, 0.507, 0.5, 0.494, 0.487, 0.481, 0.475, 0.469, 0.463, 0.457, 0.452, 0.447, 0.442, 0.438, 0.433, 0.429, 0.425, 0.421, 0.418, 0.414, 0.411, 0.408, 0.405, 0.402, 0.4, 0.397, 0.395, 0.392, 0.39, 0.387, 0.385, 0.383, 0.381, 0.379, 0.377, 0.376, 0.374, 0.373, 0.371, 0.37, 0.369, 0.368, 0.367, 0.366, 0.365, 0.364, 0.363, 0.362, 0.361, 0.36, 0.359, 0.358, 0.357, 0.356, 0.355, 0.354, 0.353, 0.352, 0.351, 0.35, 0.349, 0.348, 0.347, 0.346, 0.345, 0.344, 0.343, 0.342, 0.341, 0.34, 0.339, 0.338, 0.337, 0.336, 0.335, 0.334, 0.333, 0.332, 0.331, 0.33, 0.329, 0.328, 0.327, 0.326, 0.325, 0.324, 0.323, 0.322, 0.321, 0.32, 0.319, 0.318, 0.317, 0.316, 0.315, 0.314, 0.313, 0.312, 0.311, 0.31, 0.309, 0.308, 0.307, 0.306, 0.305, 0.304, 0.303, 0.302, 0.301, 0.3, 0.299, 0.298, 0.297, 0.296, 0.295, 0.294, 0.293, 0.292, 0.291, 0.29, 0.289, 0.288, 0.287, 0.286, 0.285, 0.284, 0.283, 0.282, 0.281, 0.28, 0.279, 0.278, 0.277, 0.276, 0.275, 0.274, 0.273, 0.272, 0.271, 0.27, 0.269, 0.268, 0.267, 0.266, 0.265, 0.264, 0.263, 0.262, 0.261, 0.26, 0.259, 0.258, 0.257, 0.256, 0.255, 0.254, 0.253, 0.252, 0.252, 0.251, 0.25, 0.249, 0.249, 0.248, 0.247, 0.246, 0.246, 0.245, 0.244, 0.243, 0.242, 0.241, 0.24, 0.239, 0.238, 0.237, 0.236, 0.235, 0.234, 0.233, 0.232, 0.231, 0.23, 0.229, 0.228, 0.227, 0.226, 0.225, 0.225, 0.224, 0.223, 0.222, 0.221, 0.22, 0.219, 0.218, 0.217, 0.216, 0.215, 0.214, 0.213, 0.212, 0.211, 0.21, 0.209, 0.208, 0.207, 0.206, 0.205, 0.204, 0.203, 0.202, 0.201, 0.2, 0.199, 0.198, 0.197, 0.196, 0.195, 0.194, 0.193, 0.192, 0.191, 0.19, 0.189, 0.188, 0.187, 0.186, 0.185, 0.184, 0.183, 0.182, 0.181, 0.18, 0.179, 0.178, 0.177, 0.176, 0.175, 0.174, 0.173, 0.172, 0.171, 0.17, 0.169, 0.168, 0.167, 0.166, 0.165, 0.164, 0.163, 0.162, 0.161, 0.16, 0.159, 0.158, 0.157, 0.156, 0.155, 0.154, 0.153, 0.152, 0.151, 0.15, 0.149, 0.148, 0.147, 0.146, 0.145, 0.144, 0.143, 0.142, 0.141, 0.14, 0.139, 0.138, 0.137, 0.136, 0.135, 0.134, 0.133, 0.132, 0.131, 0.13, 0.129, 0.128, 0.127, 0.126, 0.125, 0.124, 0.123, 0.122, 0.121, 0.12, 0.119, 0.118, 0.117, 0.116, 0.115, 0.114, 0.113, 0.112, 0.111, 0.11, 0.109, 0.108, 0.107, 0.106, 0.105, 0.104, 0.103, 0.102, 0.101, 0.1, 0.099, 0.098, 0.097, 0.096, 0.095, 0.094, 0.093, 0.092, 0.091, 0.09, 0.089, 0.088, 0.087, 0.086, 0.085, 0.084, 0.083, 0.082, 0.081, 0.08, 0.079, 0.078, 0.077, 0.076, 0.075, 0.074, 0.073, 0.072, 0.071, 0.071, 0.07, 0.069, 0.068, 0.067, 0.066, 0.065, 0.064, 0.063, 0.063, 0.062, 0.061, 0.06, 0.059, 0.058, 0.057, 0.056, 0.055, 0.054, 0.053, 0.052, 0.052, 0.051, 0.05, 0.049, 0.049, 0.048, 0.047, 0.046, 0.045, 0.045, 0.044, 0.043, 0.042, 0.041, 0.04, 0.039, 0.039, 0.038, 0.037, 0.036, 0.035, 0.034, 0.033, 0.033, 0.032, 0.031, 0.03, 0.029, 0.028, 0.027, 0.026, 0.025, 0.024, 0.023, 0.022, 0.021, 0.02, 0.019, 0.018, 0.017, 0.016, 0.015, 0.014, 0.013, 0.012, 0.011, 0.01, 0.009, 0.008, 0.007, 0.006, 0.005, 0.004, 0.003, 0.002, 0.001, 0);
+}
+
+/* ── Iris aperture shutter ──
+   Like a camera lens opening/closing ──
+*/
+@keyframes iris-open {
+   0% { clip-path: circle(0% at 50% 50%); opacity: 0; }
+   100% { clip-path: circle(150% at 50% 50%); opacity: 1; }
+}
+
+@keyframes iris-close {
+   0% { clip-path: circle(150% at 50% 50%); opacity: 1; }
+   100% { clip-path: circle(0% at 50% 50%); opacity: 0; }
+}
+
+.animate-iris-open {
+   animation: iris-open 0.6s var(--spring-gentle) forwards;
+}
+
+.animate-iris-close {
+   animation: iris-close 0.6s var(--spring-gentle) forwards;
+}
+
+/* ── Shutter blades ──
+   Like film shutter blades opening ──
+*/
+@keyframes shutter-open {
+   0% { clip-path: polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%, 50% 50%); opacity: 0; }
+   100% { clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%); opacity: 1; }
+}
+
+.animate-shutter-open {
+   animation: shutter-open 0.4s var(--spring-wobbly) forwards;
+}
+
+/* ── Scramble text ──
+   Characters scramble then resolve on hover ──
+*/
+@keyframes scramble {
+   0%, 100% { content: attr(data-text); }
+   25% { content: attr(data-scramble-a); }
+   50% { content: attr(data-scramble-b); }
+   75% { content: attr(data-scramble-c); }
+}
+
+.animate-scramble:hover::after {
+   content: attr(data-scramble-a);
+   animation: scramble 0.5s steps(5) infinite;
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   mix-blend-mode: difference;
+   opacity: 0.7;
+}
+
+/* ── Spring bobble ──
+   Physical bobble on hover like Motion's useVelocity ──
+*/
+@keyframes bobble {
+   0% { transform: translateY(0) rotate(0deg) scale(1); }
+   25% { transform: translateY(-4px) rotate(-2deg) scale(1.02); }
+   50% { transform: translateY(2px) rotate(2deg) scale(0.98); }
+   75% { transform: translateY(-1px) rotate(-1deg) scale(1.01); }
+   100% { transform: translateY(0) rotate(0deg) scale(1); }
+}
+
+.animate-bobble:hover {
+   animation: bobble 0.5s var(--spring-wobbly);
+}
+
+/* ── Curtain wipe ──
+   Like a theatre curtain opening ──
+*/
+@keyframes curtain-wipe {
+   0% { clip-path: polygon(0% 0%, 50% 0%, 50% 100%, 0% 100%); }
+   100% { clip-path: polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%); }
+}
+
+.animate-curtain-wipe {
+   animation: curtain-wipe 0.6s var(--spring-gentle) forwards;
+}
+
+/* ── Scroll deblur ──
+   Element blurs in then sharpens as it scrolls into view ──
+*/
+@keyframes scroll-deblur {
+   0% { opacity: 0; filter: blur(8px); transform: translateY(20px); }
+   100% { opacity: 1; filter: blur(0px); transform: translateY(0); }
+}
+
+.animate-scroll-deblur {
+   animation: scroll-deblur 1.5s ease-out forwards;
+   opacity: 0;
+}

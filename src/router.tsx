@@ -2,7 +2,7 @@ import { createRouter } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
 
 export function getRouter() {
-   return createRouter({ routeTree, basepath: "/about" });
+   return createRouter({ routeTree, basepath: "/" });
 }
 
 declare module "@tanstack/react-router" {

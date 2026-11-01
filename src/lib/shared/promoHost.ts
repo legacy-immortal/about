@@ -29,5 +29,5 @@ export function buildOfficialPromoUrlFromConfig(config: { baseUrl: string; subdo
 }
 
 export function isApexPublicSpaPath(path: string): boolean {
-   return ["/about", "/docs", "/for-builders", "/status"].includes(path);
+   return ["/", "/docs", "/for-builders", "/status"].includes(path);
 }

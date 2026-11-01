@@ -12,7 +12,7 @@ const PRODUCT_LINKS = [
    { label: "Features", href: "#features" },
    { label: "Concept", href: "#concept" },
    { label: "Pricing", href: "#pricing" },
-   { label: "Pre-Alpha", href: "#invitation" },
+   { label: "Early Access", href: "#invitation" },
 ] as const;
 
 export function Footer() {

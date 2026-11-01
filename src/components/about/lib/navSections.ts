@@ -1,6 +1,5 @@
 /**
- * In-page about nav targets. Alpha Access / invitation is intentionally absent —
- * see `docs/documentation/about-integration.md` (alpha invite flow removed).
+ * In-page about nav targets.
  * @module routes/about/-lib/navSections
  **/
 export interface NavSection {

@@ -214,7 +214,12 @@ export async function runPersonaWalkthrough(
       }
     }
   } finally {
-    await iface.destroy().catch(() => {});
+    try {
+      await iface.destroy();
+    } catch (err) {
+      // Cleanup errors should not mask test results, but they must not be silent either.
+      console.error(`[${persona.name}] cleanup error: ${err instanceof Error ? err.message : String(err)}`);
+    }
   }
 
   const overallSuccess = steps.every(s => s.success);

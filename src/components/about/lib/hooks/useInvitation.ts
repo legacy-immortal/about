@@ -16,6 +16,12 @@ export interface UseInvitationReturn {
 }
 
 const API_BASE = import.meta.env?.VITE_API_BASE ?? "";
+// On a static (GitHub Pages) build there is no invitation backend, so VITE_API_BASE
+// is empty. Guard mutating/validating calls so the early access CTA fails with a clear,
+// actionable message instead of a cryptic "Failed to fetch" crash.
+const API_CONFIGURED = Boolean(API_BASE);
+
+const API_UNAVAILABLE_ERROR = "Invitation backend not configured for this build.";
 
 async function postJson<T>(path: string, body: unknown): Promise<T> {
    const res = await fetch(`${API_BASE}${path}`, {
@@ -39,6 +45,12 @@ export const useInvitation = (): UseInvitationReturn => {
       setLoading(true);
       setError(null);
 
+      if (!API_CONFIGURED) {
+         setError(API_UNAVAILABLE_ERROR);
+         setLoading(false);
+         return null;
+      }
+
       try {
          // Backend enforces gating (optional) and uniqueness
          const result = await postJson<{ invitationKey: string }>("/invites/generate", {
@@ -59,6 +71,12 @@ export const useInvitation = (): UseInvitationReturn => {
    const validateKey = useCallback(async (key: string): Promise<boolean> => {
       setLoading(true);
       setError(null);
+
+      if (!API_CONFIGURED) {
+         setError(API_UNAVAILABLE_ERROR);
+         setLoading(false);
+         return false;
+      }
 
       try {
          const res = await fetch(`${API_BASE}/invites/validate?key=${encodeURIComponent(key)}`);
@@ -83,6 +101,12 @@ export const useInvitation = (): UseInvitationReturn => {
       ): Promise<{ success: boolean; message: string }> => {
          setLoading(true);
          setError(null);
+
+         if (!API_CONFIGURED) {
+            setError(API_UNAVAILABLE_ERROR);
+            setLoading(false);
+            return { success: false, message: API_UNAVAILABLE_ERROR };
+         }
 
          try {
             const result = await postJson<{ success: boolean; message: string }>("/invites/claim", {

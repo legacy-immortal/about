@@ -1,22 +1,20 @@
 "use client";
 
-import { Box, Container, Heading, Text, VStack } from "@chakra-ui/react";
+import { Box, Container, SimpleGrid, VStack } from "@chakra-ui/react";
+import { AboutHeading } from "../ui/Heading";
+import { AboutText } from "../ui/Text";
 import { Button } from "../ui/Button";
+import { loadContent } from "../lib/contentLoader";
 
-const COPY = {
-   title: "Build Your Legacy ❧",
-   description:
-      "Join the pre-alpha waitlist today. Create your first memorial, import your digital archive, or set up your estate. Your legacy starts now — on your terms.",
-   buttonText: "Join the waitlist ❧",
-   buttonHref: "#invitation",
-} as const;
+const content = loadContent();
+const cta = content.cta?.frontmatter || {};
 
 export function CTASection() {
    return (
-      <Box as="section" py="24">
+      <Box as="section" id="cta" py="24">
          <Container maxW="container.xl" px="4" textAlign="center">
             <VStack maxW="3xl" mx="auto" gap="12">
-               <Heading
+               <AboutHeading
                   color="fg"
                   mb="8"
                   _dark={{ color: "primary.500" }}
@@ -24,13 +22,13 @@ export function CTASection() {
                   fontWeight="bold"
                   fontFamily="serif"
                >
-                  {COPY.title}
-               </Heading>
-               <Text color="fg" mb="12" _dark={{ color: "fg.muted" }} fontSize="xl">
-                  {COPY.description}
-               </Text>
-               <Button href={COPY.buttonHref} variant="primary" size="lg">
-                  {COPY.buttonText}
+                  {cta.title || "Build Your Legacy ❧"}
+               </AboutHeading>
+               <AboutText color="fg" mb="12" _dark={{ color: "fg.muted" }} fontSize="xl">
+                  {cta.description || ""}
+               </AboutText>
+               <Button href={cta.buttonHref || "#invitation"} variant="primary" size="lg">
+                  {cta.buttonText || "Get Invite Keys ❧"}
                </Button>
             </VStack>
          </Container>

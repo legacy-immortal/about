@@ -3,22 +3,21 @@
 import { Box, Flex, Heading, IconButton, Link } from "@chakra-ui/react";
 import { Link as RouterLink, useRouterState } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { DASHBOARD_BASEPATH } from "~/constants";
 import { Button } from "../ui/Button";
 import ThemeSwitcher from "../ui/ThemeSwitcher";
 
 const BRAND_NAME = "Legacy Immortal";
 const BRAND_INITIALS = "LI";
-const CTA_TEXT = "Get Alpha Access";
+const CTA_TEXT = "Get Invite Keys ❧";
 const CTA_HREF = "#invitation";
 
-const ABOUT_PATH = "/about";
+const ABOUT_PATH = "/";
 
 const NAV_LINKS = [
    { label: "Features", href: "#features" },
    { label: "Concept", href: "#concept" },
    { label: "Pricing", href: "#pricing" },
-   { label: "Alpha Access", href: "#invitation" },
+   { label: "Early Access", href: "#invitation" },
 ] as const;
 
 export function Header() {
@@ -71,7 +70,7 @@ export function Header() {
                   >
                      <Heading
                         as="span"
-                        fontSize="sm"
+                        fontSize="xl"
                         fontWeight="bold"
                         color="fg"
                         _dark={{ color: "primary.500" }}
@@ -97,18 +96,12 @@ export function Header() {
                         <Link
                            key={link.href}
                            href={link.href}
+                           className="surreal-link animate-simple-fade-in"
+                           style={{ animationDelay: "0.1s" }}
                            color="fg"
-                           _hover={{
-                              color: "fg.muted",
-                              textDecoration: "underline",
-                              textDecorationColor: "fg.subtle",
-                              textUnderlineOffset: "2px",
-                           }}
-                           _dark={{
-                              color: "fg",
-                              _hover: { color: "primary.accent", textDecoration: "none" },
-                           }}
-                           transition="color 0.3s ease, text-decoration 0.3s ease"
+                           _hover={{ color: "fg.muted" }}
+                           _dark={{ color: "fg", _hover: { color: "primary.accent" } }}
+                           transition="color 0.4s ease"
                         >
                            {link.label}
                         </Link>
@@ -118,18 +111,6 @@ export function Header() {
 
                <Flex align="center" gap="3">
                   <ThemeSwitcher />
-                  <Box hideBelow="sm">
-                     <Link
-                        asChild
-                        color="fg"
-                        fontFamily="mono"
-                        fontWeight="semibold"
-                        fontSize="sm"
-                        _hover={{ color: "fg.muted", textDecoration: "none" }}
-                     >
-                        <RouterLink to={DASHBOARD_BASEPATH}>Open app</RouterLink>
-                     </Link>
-                  </Box>
                   <Button href={CTA_HREF} variant="cta" size="md" px="6" py="2">
                      {CTA_TEXT}
                   </Button>
@@ -169,18 +150,12 @@ export function Header() {
                         <Link
                            key={link.href}
                            href={link.href}
+                           className="surreal-link animate-simple-fade-in"
+                           style={{ animationDelay: "0.1s" }}
                            color="fg"
-                           _hover={{
-                              color: "fg.muted",
-                              textDecoration: "underline",
-                              textDecorationColor: "fg.subtle",
-                              textUnderlineOffset: "2px",
-                           }}
-                           _dark={{
-                              color: "fg",
-                              _hover: { color: "primary.accent", textDecoration: "none" },
-                           }}
-                           transition="color 0.3s ease, text-decoration 0.3s ease"
+                           _hover={{ color: "fg.muted" }}
+                           _dark={{ color: "fg", _hover: { color: "primary.accent" } }}
+                           transition="color 0.4s ease"
                         >
                            {link.label}
                         </Link>
