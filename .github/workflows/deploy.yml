@@ -1,0 +1,31 @@
+name: Deploy to GitHub Pages
+
+on:
+   push:
+      branches: [main]
+      paths: ["**"]
+   workflow_dispatch:
+
+permissions:
+   contents: write
+
+concurrency:
+   group: pages
+   cancel-in-progress: true
+
+jobs:
+   build-and-deploy:
+      runs-on: ubuntu-latest
+      environment:
+         name: github-pages
+      steps:
+         - uses: actions/checkout@v4
+         - uses: oven-sh/setup-bun@v2
+         - run: bun install
+         - run: bun run build
+         - uses: peaceiris/actions-gh-pages@v4
+            with:
+               github_token: ${{ secrets.GITHUB_TOKEN }}
+               publish_dir: dist
+               destination_dir: "."
+               keep_files: false
