@@ -1,7 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
 
 /**
- * Independent e2e test runner for the legacyimmortal-about site.
+ * Independent e2e test runner for the about site.
  * Serves against the local Vite dev server at http://localhost:5173/
  */
 export default defineConfig({
