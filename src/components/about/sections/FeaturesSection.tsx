@@ -1,103 +1,43 @@
 "use client";
 
-import { Box, Container, HStack, SimpleGrid, VStack } from "@chakra-ui/react";
-import type { IconType } from "react-icons";
+import { Box, Container, SimpleGrid, VStack } from "@chakra-ui/react";
 import { resolveIcon } from "../lib/iconMap";
+import { Card } from "../ui/Card";
 import { AboutHeading } from "../ui/Heading";
 import { AboutText } from "../ui/Text";
-import { loadContent } from "../lib/contentLoader";
+import { SectionIntro } from "../ui/SectionIntro";
+import { loadContent, readFeatureItems, readString } from "../lib/contentLoader";
 
 const content = loadContent();
-const features = content.features?.frontmatter || {};
-
-const items: Array<{ title: string; description: string; icon: IconType }> =
-   (features.items as Array<{ title: string; description: string; icon: string }> | undefined)?.map(
-      (item) => ({
-         title: item.title,
-         description: item.description,
-         icon: resolveIcon(item.icon),
-      })
-   ) || [];
+const features = content.features?.frontmatter;
+const items = readFeatureItems(features);
 
 export function FeaturesSection() {
    return (
-      <Box as="section" id="features" pt={{ base: "12", md: "16" }} pb="24">
-         <Container maxW="container.xl" px="4">
-            <VStack maxW="6xl" mx="auto" gap="16">
-               <VStack textAlign="center" mb="12">
-                  <AboutHeading
-                     color="fg"
-                     mb="8"
-                     _dark={{ color: "primary.500" }}
-                     fontSize={{ base: "4xl", md: "5xl" }}
-                     fontWeight="bold"
-                     fontFamily="serif"
-                  >
-                     {features.title || "Permanent digital legacy ❧"}
-                  </AboutHeading>
-                  <AboutText
-                     color="fg"
-                     maxW="3xl"
-                     mx="auto"
-                     _dark={{ color: "fg.muted" }}
-                     fontSize="xl"
-                  >
-                     {features.description || ""}
-                  </AboutText>
-               </VStack>
+      <Box as="section" id="features" className="section">
+         <Container maxW="container.xl" px={{ base: "5", md: "8" }}>
+            <VStack align="stretch" gap={{ base: "10", md: "14" }}>
+               <SectionIntro
+                  title={readString(features, "title", "Permanent digital legacy ❧")}
+                  kicker={readString(features, "subTitle", "Built for resilience ❧")}
+                  lede={readString(features, "description", "")}
+               />
 
-               <AboutHeading
-                  as="h3"
-                  color="fg"
-                  _dark={{ color: "primary.500" }}
-                  fontSize="xl"
-                  fontWeight="semibold"
-                  fontFamily="serif"
-               >
-                  {features.subTitle || "Built for resilience ❧"}
-               </AboutHeading>
-
-               <SimpleGrid columns={{ base: 1, lg: 2 }} gap="12">
+               <SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} gap={{ base: "6", md: "8" }}>
                   {items.map((item) => {
-                     const ItemIcon = item.icon;
+                     const ItemIcon = resolveIcon(item.icon);
                      return (
-                        <Box key={item.title} p="8">
-                           <HStack align="flex-start" gap="4">
-                              <Box flexShrink="0">
-                                 <Box
-                                    width="12"
-                                    height="12"
-                                    display="flex"
-                                    alignItems="center"
-                                    justifyContent="center"
-                                    color="fg"
-                                    _dark={{ color: "primary.500" }}
-                                 >
-                                    <ItemIcon size={40} aria-hidden />
-                                 </Box>
-                              </Box>
-                              <VStack align="flex-start" gap="3">
-                                 <AboutHeading
-                                    as="h3"
-                                    color="fg"
-                                    mb="3"
-                                    _dark={{ color: "primary.500" }}
-                                    fontSize="xl"
-                                    fontWeight="semibold"
-                                    fontFamily="serif"
-                                 >
-                                    {item.title}
-                                 </AboutHeading>
-                                 <AboutText
-                                    color="fg"
-                                    lineHeight="relaxed"
-                                    _dark={{ color: "fg.muted" }}
-                                 >
-                                    {item.description}
-                                 </AboutText>
-                              </VStack>
-                           </HStack>
-                        </Box>
+                        <Card key={item.title} className="index-card" padding="none">
+                           <Box className="index-card__stamp" aria-hidden="true">
+                              <ItemIcon size={24} />
+                           </Box>
+                           <AboutHeading as="h3" className="index-card__title">
+                              {item.title}
+                           </AboutHeading>
+                           <AboutText as="p" className="index-card__body">
+                              {item.description}
+                           </AboutText>
+                        </Card>
                      );
                   })}
                </SimpleGrid>

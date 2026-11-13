@@ -1,10 +1,13 @@
-/**
- * About-only faces.
- * Crimson Text (roman + italic, 400/600) served via Google Fonts.
+/*
+ * Legacy Immortal — about-site faces.
  *
- * The previous @font-face chain pulled ./fonts/crimson-text/latin-*.css, which
- * reference ./files/*.woff2 binaries that were never vendored in this repo.
- * Those URLs 404 in production (including on GitHub Pages), so they are
- * replaced with a working web font source.
+ *   Crimson Text  display, headings, pull quotes  (the "estate ledger" voice)
+ *   Inter         body copy and interface text
+ *   IBM Plex Mono literal values — invite keys, hashes, identifiers
+ *
+ * Loaded from Google Fonts because the previous @font-face chain pulled
+ * ./fonts/crimson-text/latin-*.css, which reference ./files/*.woff2 binaries
+ * that were never vendored in this repo. Those URLs 404 in production
+ * (including on GitHub Pages), so they are replaced with a working source.
  */
-@import url("https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap");

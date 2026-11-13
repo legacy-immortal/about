@@ -1,98 +1,80 @@
 "use client";
 
 import { lazy, Suspense } from "react";
-import { Box, Container, Flex, VStack } from "@chakra-ui/react";
+import { Box, Container, Grid, GridItem, HStack, VStack } from "@chakra-ui/react";
 import { Button } from "../../ui/Button";
 import { AboutHeading } from "../../ui/Heading";
 import { AboutText } from "../../ui/Text";
-import { loadContent } from "../../lib/contentLoader";
+import { loadContent, readString } from "../../lib/contentLoader";
+import { stripFleuron } from "../../lib/fleuron";
 
 const NautilusShell = lazy(() => import("./NautilusShell"));
 
 const content = loadContent();
-const hero = content.hero?.frontmatter || {};
+const hero = content.hero?.frontmatter;
 
 export function HeroSection() {
+   const title = readString(hero, "title", "Legacy Immortal ❧");
+   const subtitle = readString(hero, "subtitle", "Your digital life, preserved — forever.");
+   const description = readString(hero, "description", "");
+   const primaryText = stripFleuron(readString(hero, "primaryButtonText", "Get early access"));
+   const primaryHref = readString(hero, "primaryButtonHref", "#invitation");
+   const secondaryText = stripFleuron(
+      readString(hero, "secondaryButtonText", "See how it works"),
+   );
+   const secondaryHref = readString(hero, "secondaryButtonHref", "#features");
+
    return (
-      <Box
-         as="section"
-         position="relative"
-         minH="100vh"
-         display="flex"
-         alignItems="center"
-         justifyContent="center"
-         overflow="hidden"
-      >
-         <Box position="absolute" inset="0" zIndex="0" pointerEvents="none">
+      <Box as="section" className="hero" position="relative" overflow="hidden">
+         {/* The shell is the one loud thing on the page: the chambered spiral
+             of a growing archive, drawn to the right of the opening words. */}
+         <Box
+            className="hero__spiral"
+            position="absolute"
+            inset="0"
+            zIndex="0"
+            pointerEvents="none"
+            data-hero-spiral="true"
+         >
             <Suspense fallback={null}>
                <NautilusShell className="w-full h-full" />
             </Suspense>
          </Box>
 
-         <Box
-            position="relative"
-            zIndex="10"
-            width="100%"
-            minH="calc(100vh - 4.5rem)"
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            data-hero-content
-         >
-            <Container maxW="container.lg" px="4" textAlign="center">
-               <VStack maxW="3xl" mx="auto" gap="8">
-                  <AboutHeading
-                     as="h1"
-                     mb="8"
-                     color="fg"
-                     _dark={{ color: "fg" }}
-                     fontSize={{ base: "3xl", md: "5xl", lg: "6xl" }}
-                     fontWeight="bold"
-                     fontFamily="serif"
-                     letterSpacing="wider"
-                  >
-                     {hero.title || "Legacy Immortal ❧"}
-                  </AboutHeading>
+         <Box position="relative" zIndex="10" data-hero-content>
+            <Container maxW="container.xl" px={{ base: "5", md: "8" }}>
+               <Grid
+                  templateColumns={{ base: "1fr", lg: "minmax(0, 7fr) minmax(0, 5fr)" }}
+                  gap="8"
+                  alignItems="center"
+                  minH={{ base: "auto", lg: "calc(100vh - var(--about-header-h))" }}
+                  py={{ base: "20", lg: "28" }}
+               >
+                  <GridItem>
+                     <VStack align="flex-start" gap="6" maxW="38rem" className="hero__copy">
+                        <AboutHeading as="h1" className="hero__title">
+                           {title}
+                        </AboutHeading>
 
-                  <AboutText
-                     mb="6"
-                     maxW="xl"
-                     mx="auto"
-                     lineHeight="relaxed"
-                     color="fg"
-                     _dark={{ color: "fg" }}
-                     fontSize="md"
-                  >
-                     {hero.subtitle || "Your digital life, preserved — forever."}
-                  </AboutText>
+                        <AboutText as="p" className="hero__subtitle">
+                           <span>{subtitle}</span>
+                        </AboutText>
 
-                  <AboutText
-                     mb="8"
-                     maxW="2xl"
-                     mx="auto"
-                     lineHeight="loose"
-                     color="fg"
-                     _dark={{ color: "fg.muted" }}
-                     fontSize="md"
-                  >
-                     {hero.description || ""}
-                  </AboutText>
+                        <AboutText as="p" className="hero__description">
+                           <span>{description}</span>
+                        </AboutText>
 
-                  <Flex
-                     direction={{ base: "column", sm: "row" }}
-                     gap="4"
-                     justify="center"
-                     align="center"
-                     mb="12"
-                  >
-                     <Button href={hero.primaryButtonHref || "#invitation"} variant="primary" size="md">
-                        {hero.primaryButtonText || "Get Early Access ❧"}
-                     </Button>
-                     <Button href={hero.secondaryButtonHref || "#features"} variant="outline" size="md">
-                        {hero.secondaryButtonText || "See how it works ❧"}
-                     </Button>
-                  </Flex>
-               </VStack>
+                        <HStack gap="3" flexWrap="wrap" pt="2">
+                           <Button href={primaryHref} variant="primary" size="md">
+                              {primaryText}
+                           </Button>
+                           <Button href={secondaryHref} variant="outline" size="md">
+                              {secondaryText}
+                           </Button>
+                        </HStack>
+                     </VStack>
+                  </GridItem>
+               </Grid>
             </Container>
          </Box>
       </Box>

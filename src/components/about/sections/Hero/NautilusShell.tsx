@@ -3,10 +3,32 @@ import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import { useColorMode } from "~/components/ui/theme/color-mode";
 
-// Default values - theme-aware
-const DEFAULT_COLOR_LIGHT = "#002b36"; // Dark color for light mode
-const DEFAULT_COLOR_DARK = "#fdf6e3"; // Bright color for dark mode
-const DEFAULT_OPACITY = 0.3;
+/**
+ * Shell colours track the about palette: iron-gall ink drawn on paper, and
+ * the same ink reversed for the dark theme. Kept as literal hex because
+ * THREE.Color cannot resolve CSS custom properties.
+ */
+const DEFAULT_COLOR_LIGHT = "#16303d";
+const DEFAULT_COLOR_DARK = "#dce8ee";
+const DEFAULT_OPACITY = 0.34;
+
+/** True when the visitor asked for less motion — the shell then holds still. */
+function usePrefersReducedMotion(): boolean {
+   const [reduced, setReduced] = useState(false);
+
+   useEffect(() => {
+      if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
+         return;
+      }
+      const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+      setReduced(query.matches);
+      const onChange = (event: MediaQueryListEvent) => setReduced(event.matches);
+      query.addEventListener("change", onChange);
+      return () => query.removeEventListener("change", onChange);
+   }, []);
+
+   return reduced;
+}
 
 export interface NautilusShell3DConfig {
    // Position and scale
@@ -155,6 +177,7 @@ function NautilusShell3D(config: NautilusShell3DConfig = {}) {
    const effectiveNumRadialLines = numRadialLines ?? numChambers;
 
    const groupRef = useRef<THREE.Group>(null);
+   const reducedMotion = usePrefersReducedMotion();
    const shellColor = useMemo(() => new THREE.Color(color), [color]);
 
    // Main spiral outline - outer edge of shell
@@ -414,6 +437,10 @@ function NautilusShell3D(config: NautilusShell3DConfig = {}) {
       if (groupRef.current) {
          // Keep position static - no floating animation
          groupRef.current.position.set(position[0], position[1], position[2]);
+         if (reducedMotion) {
+            groupRef.current.rotation.set(0, 0, 0);
+            return;
+         }
          // Gentle rotation (rotation doesn't change position or scale)
          groupRef.current.rotation.z =
             Math.sin(state.clock.elapsedTime * rotationSpeedZ) * rotationAmplitudeZ;
@@ -458,7 +485,7 @@ function Scene({ config }: { config?: SceneConfig }) {
    const { colorMode } = useColorMode();
    const theme = colorMode;
    const shellColor = theme === "dark" ? DEFAULT_COLOR_DARK : DEFAULT_COLOR_LIGHT;
-   const shellOpacity = theme === "dark" ? 0.5 : DEFAULT_OPACITY; // Higher opacity in dark mode for visibility
+   const shellOpacity = theme === "dark" ? 0.42 : DEFAULT_OPACITY; // Slightly stronger on the dark ground
 
    const {
       cameraPosition = [0, 0, 4.5],
@@ -467,7 +494,7 @@ function Scene({ config }: { config?: SceneConfig }) {
       directionalLightPosition = [5, 5, 5],
       directionalLightIntensity = 0.3,
       shellConfig = {
-         scale: 0.02,
+         scale: 0.017,
          showRadialLines: true,
          numRadialLines: 22,
          radialLineWidth: 1,
@@ -533,16 +560,24 @@ function Scene({ config }: { config?: SceneConfig }) {
    );
 }
 
-function NautilusShell2DFallback({ className, sceneConfig }: { className?: string; sceneConfig?: SceneConfig }) {
+type Point2D = { x: number; y: number };
+
+function NautilusShell2DFallback({ className }: { className?: string; sceneConfig?: SceneConfig }) {
    // 2D NautilusShell fallback - clean smooth nautilus spiral with shared 3D features
    const { colorMode } = useColorMode();
    const theme = colorMode;
    const shellColor = theme === "dark" ? DEFAULT_COLOR_DARK : DEFAULT_COLOR_LIGHT;
-   const shellOpacity = theme === "dark" ? 0.5 : DEFAULT_OPACITY;
+   const shellOpacity = theme === "dark" ? 0.42 : DEFAULT_OPACITY;
 
    // Generate a smooth logarithmic spiral
-   const generateSpiral = (a, b, turns, numPoints, scale) => {
-      const points = [];
+   const generateSpiral = (
+      a: number,
+      b: number,
+      turns: number,
+      numPoints: number,
+      scale: number,
+   ): Point2D[] => {
+      const points: Point2D[] = [];
       for (let i = 0; i <= numPoints; i++) {
          const t = i / numPoints;
          const angle = t * turns * 2 * Math.PI;
@@ -555,8 +590,8 @@ function NautilusShell2DFallback({ className, sceneConfig }: { className?: strin
    };
 
    // Smooth points using moving average to eliminate jaggedness
-   const smoothPoints = (points, windowSize = 5) => {
-      const smoothed = [];
+   const smoothPoints = (points: Point2D[], windowSize = 5): Point2D[] => {
+      const smoothed: Point2D[] = [];
       const half = Math.floor(windowSize / 2);
       for (let i = 0; i < points.length; i++) {
          let sumX = 0, sumY = 0, count = 0;
@@ -640,7 +675,7 @@ function NautilusShell2DFallback({ className, sceneConfig }: { className?: strin
    const aperturePoints = useMemo(() => generateAperture(), []);
 
    // Convert points to smooth SVG path using cubic bezier (Catmull-Rom spline)
-   const pointsToPath = (points) => {
+   const pointsToPath = (points: Point2D[]): string => {
       if (points.length === 0) return '';
       if (points.length === 1) return 'M ' + (points[0].x + 200) + ' ' + (points[0].y + 200);
       if (points.length === 2) {
@@ -870,8 +905,9 @@ export default function NautilusShell({ className, sceneConfig }: NautilusShellP
                      powerPreference: "high-performance",
                      failIfMajorPerformanceCaveat: false,
                   }}
-                  onError={(error) => {
-                     console.log('WebGL error (fallback active):', error.message);
+                  onError={(event) => {
+                     const detail = "message" in event ? String(event.message) : "unknown";
+                     console.log(`WebGL error (fallback active): ${detail}`);
                   }}
                >
                   <Suspense fallback={null}>

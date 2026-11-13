@@ -3,16 +3,46 @@
  *
  * Explicitly imports each markdown file as a raw string, then parses the
  * leading --- delimited JSON frontmatter.
+ *
+ * Frontmatter is authored as JSON, so its shape differs per section. The
+ * loader keeps the raw record and exposes small typed readers; each consumer
+ * narrows the fields it needs instead of casting untyped blobs.
  */
 
-interface Frontmatter {
+export type Frontmatter = {
    [key: string]: unknown;
-}
+};
 
-interface ContentFile {
+export type ContentFile = {
    frontmatter: Frontmatter;
    body: string;
    raw: string;
+};
+
+/** Read a string field, falling back when it is missing or the wrong type. */
+export function readString(
+   frontmatter: Frontmatter | undefined,
+   key: string,
+   fallback = "",
+): string {
+   const value = frontmatter?.[key];
+   return typeof value === "string" ? value : fallback;
+}
+
+/** Read a boolean field, falling back when it is missing or the wrong type. */
+export function readBoolean(
+   frontmatter: Frontmatter | undefined,
+   key: string,
+   fallback = false,
+): boolean {
+   const value = frontmatter?.[key];
+   return typeof value === "boolean" ? value : fallback;
+}
+
+/** Read an array field, falling back to an empty list when it is missing. */
+export function readArray<T>(frontmatter: Frontmatter | undefined, key: string): T[] {
+   const value = frontmatter?.[key];
+   return Array.isArray(value) ? (value as T[]) : [];
 }
 
 /**
@@ -25,7 +55,7 @@ function parseFrontmatter(raw: string): ContentFile {
    const match = raw.match(/^---\s*\n([\s\S]*?)\n---\s*\n?([\s\S]*)$/);
    if (match) {
       try {
-         frontmatter = JSON.parse(match[1]);
+         frontmatter = JSON.parse(match[1]) as Frontmatter;
       } catch {
          frontmatter = {};
       }
@@ -66,4 +96,70 @@ export function loadContent(): Record<string, ContentFile> {
    }
 
    return content;
+}
+
+/* ── Shared content shapes ──────────────────────────────────────────────── */
+
+export type FeatureItem = {
+   title: string;
+   description: string;
+   icon: string;
+};
+
+export type PlanFeature = {
+   label: string;
+   infoText?: string;
+};
+
+export type PlanData = {
+   value: string;
+   title: string;
+   description: string;
+   features: PlanFeature[];
+   priceCurrency: string;
+   priceSymbol: string;
+   price: number;
+   priceUnit: string;
+   recommended?: boolean;
+   callToAction?: string;
+};
+
+/** Read the feature grid (features.md). */
+export function readFeatureItems(frontmatter: Frontmatter | undefined): FeatureItem[] {
+   return readArray<Frontmatter>(frontmatter, "items").map((item) => ({
+      title: readString(item, "title"),
+      description: readString(item, "description"),
+      icon: readString(item, "icon", "GiKey"),
+   }));
+}
+
+/** Read the concept grid (concept.md). */
+export function readConceptItems(frontmatter: Frontmatter | undefined): FeatureItem[] {
+   return readArray<Frontmatter>(frontmatter, "items").map((item) => ({
+      title: readString(item, "title"),
+      description: readString(item, "description"),
+      icon: readString(item, "icon", "GiKey"),
+   }));
+}
+
+/** Read the pricing tiers (pricing.md). */
+export function readPlans(frontmatter: Frontmatter | undefined): PlanData[] {
+   return readArray<Frontmatter>(frontmatter, "plans").map((plan) => ({
+      value: readString(plan, "value"),
+      title: readString(plan, "title"),
+      description: readString(plan, "description"),
+      features: readArray<Frontmatter>(plan, "features").map((feature) => {
+         const infoText = readString(feature, "infoText");
+         return {
+            label: readString(feature, "label"),
+            ...(infoText ? { infoText } : {}),
+         };
+      }),
+      priceCurrency: readString(plan, "priceCurrency", "US"),
+      priceSymbol: readString(plan, "priceSymbol", "$"),
+      price: typeof plan.price === "number" ? plan.price : 0,
+      priceUnit: readString(plan, "priceUnit", "month"),
+      ...(readBoolean(plan, "recommended") ? { recommended: true } : {}),
+      callToAction: readString(plan, "callToAction"),
+   }));
 }

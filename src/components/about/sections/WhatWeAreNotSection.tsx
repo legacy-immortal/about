@@ -1,47 +1,52 @@
 "use client";
 
-import { Box, Container, VStack } from "@chakra-ui/react";
+import { Box, Container, Grid, GridItem, VStack } from "@chakra-ui/react";
 import { AboutHeading } from "../ui/Heading";
 import { AboutText } from "../ui/Text";
-import { loadContent } from "../lib/contentLoader";
+import { loadContent, readString } from "../lib/contentLoader";
 
 const content = loadContent();
-const wwan = content["what-we-are-not"]?.frontmatter || {};
+const wwan = content["what-we-are-not"]?.frontmatter;
+
+/** The body is authored as two paragraphs separated by a blank line. */
+function paragraphs(body: string): string[] {
+   return body
+      .split(/\n\s*\n/)
+      .map((paragraph) => paragraph.trim())
+      .filter(Boolean);
+}
 
 export function WhatWeAreNotSection() {
+   const body = readString(wwan, "body", "");
+
    return (
-      <Box as="section" id="what-we-are" py="32" scrollMarginTop="6rem">
-         <Container maxW="container.xl" px="4">
-            <VStack maxW="5xl" mx="auto" gap="12" align="stretch" textAlign="center">
-               <AboutHeading
-                  color="fg"
-                  _dark={{ color: "fg" }}
-                  fontSize={{ base: "5xl", md: "7xl" }}
-                  fontWeight="bold"
-                  fontFamily="serif"
-                  letterSpacing="normal"
-                  lineHeight="1.3"
-               >
-                  {wwan.title || "What we are, and what we are not ❧"}
-               </AboutHeading>
-               <Box
-                  maxW="4xl"
-                  mx="auto"
-                  px={{ base: 4, md: 8 }}
-                  py={8}
-                  borderWidth="1px"
-                  borderColor="var(--about-border)"
-                  borderRadius="xl"
-                  _dark={{ borderColor: "var(--about-border)", bg: "bg/50" }}
-                  textAlign="left"
-               >
-                  <VStack gap="6">
-                     <AboutText color="fg" _dark={{ color: "fg.muted" }} fontSize="lg" lineHeight="1.8">
-                        {wwan.body || ""}
-                     </AboutText>
+      <Box as="section" id="what-we-are" className="section">
+         <Container maxW="container.xl" px={{ base: "5", md: "8" }}>
+            <Grid
+               templateColumns={{ base: "1fr", lg: "minmax(0, 5fr) minmax(0, 7fr)" }}
+               gap={{ base: "8", lg: "12" }}
+               alignItems="start"
+            >
+               <GridItem>
+                  <VStack align="stretch" gap="4">
+                     <Box className="section-intro" pt="0">
+                        <AboutHeading as="h2" className="section-intro__title">
+                           {readString(wwan, "title", "What we are, and what we are not ❧")}
+                        </AboutHeading>
+                     </Box>
                   </VStack>
-               </Box>
-            </VStack>
+               </GridItem>
+
+               <GridItem>
+                  <Box className="statement">
+                     {paragraphs(body).map((paragraph) => (
+                        <AboutText as="p" key={paragraph.slice(0, 24)}>
+                           {paragraph}
+                        </AboutText>
+                     ))}
+                  </Box>
+               </GridItem>
+            </Grid>
          </Container>
       </Box>
    );

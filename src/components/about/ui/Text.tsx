@@ -8,9 +8,9 @@ export interface AboutTextProps extends Omit<ChakraTextProps, "as"> {
    children: ReactNode;
    className?: string;
    as?: "p" | "span" | "div";
-   /** Use serif font (Crimson Text) for headings/labels */
+   /** Use serif (Crimson Text) for display passages and pull quotes. */
    serif?: boolean;
-   /** Use mono font for codes/keys */
+   /** Use mono (IBM Plex Mono) for literal values — keys, hashes, identifiers. */
    mono?: boolean;
 }
 

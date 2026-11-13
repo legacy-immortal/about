@@ -1,16 +1,16 @@
 "use client";
 
-import { Card as ChakraCard, type CardProps as ChakraCardProps } from "@chakra-ui/react";
+import { Card as ChakraCard } from "@chakra-ui/react";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
-export interface ChakraCardProps extends Omit<
+export interface AboutCardProps extends Omit<
    ComponentPropsWithoutRef<typeof ChakraCard.Root>,
    "padding" | "p" | "variant"
 > {
    padding?: "sm" | "md" | "lg" | "none";
    children: ReactNode;
    className?: string;
-   variant?: "default" | "outlined";
+   variant?: "outline" | "subtle" | "elevated";
 }
 
 const paddingMap = {
@@ -20,13 +20,17 @@ const paddingMap = {
    lg: 8,
 };
 
+/**
+ * About-site card. The surface, border and radius come from `.surreal-card`
+ * in `styles/about/about.css`; Chakra only supplies the slot structure.
+ */
 export function Card({
    padding = "md",
    children,
    className,
-   variant = "default",
+   variant = "outline",
    ...props
-}: ChakraCardProps) {
+}: AboutCardProps) {
    return (
       <ChakraCard.Root
          className={className ? `${className} surreal-card` : "surreal-card"}

@@ -1,102 +1,118 @@
 /**
  * Legacy Immortal about-site Chakra v3 system.
  *
- * Uses createSystem to define the sunbleached technical-drawing palette
- * as semantic tokens, plus layer styles, text styles, and component recipes
- * (Card, Button) via cva/sva.
+ * The palette lives in `styles/about/about.css` as `--about-*` custom
+ * properties (one source of truth, switched by `html.light` / `html.dark`).
+ * The semantic tokens below point at those properties so Chakra-aware props
+ * (`color="fg"`, `color="fg.muted"`, `bg="bg"`, …) resolve to the same
+ * archival palette instead of Chakra's default zinc scale.
+ *
+ * Type: Crimson Text for display and headings, Inter for body and interface,
+ * IBM Plex Mono for literal values (invite keys, identifiers).
  *
  * References:
  *   https://www.chakra-ui.com/docs/theming/customization/animations
- *   https://www.chakra-ui.com/docs/theming/layer-styles
  *   https://www.chakra-ui.com/docs/theming/typography
- *   https://www.chakra-ui.com/docs/components/prose
- *   https://www.chakra-ui.com/docs/components/theme
- *   https://www.chakra-ui.com/docs/styling/chakra-factory
+ *   https://www.chakra-ui.com/docs/theming/tokens
  */
 
 import { createSystem, defaultSystem } from "@chakra-ui/react";
 
 export const aboutSystem = createSystem(defaultSystem._config, {
    theme: {
-      semanticTokens: {
-         colors: {
-            // Sunbleached technical-drawing palette
-            aboutBg: { value: { light: "#fdf6e3", dark: "#053d48" } },
-            aboutTextPrimary: { value: { light: "#073642", dark: "#454a94" } },
-            aboutTextSecondary: { value: { light: "#586e75", dark: "#adbcbc" } },
-            aboutTextMuted: { value: { light: "#657b83", dark: "#718b90" } },
-            aboutAccent: { value: { light: "#b58900", dark: "#0096f5" } },
-            aboutAccentSecondary: { value: { light: "#cb4b16", dark: "#39c7b9" } },
-            aboutBorder: { value: { light: "#586e75", dark: "#839496" } },
+      tokens: {
+         fonts: {
+            heading: {
+               value: `"Crimson Text", Georgia, "Times New Roman", serif`,
+            },
+            body: {
+               value: `"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif`,
+            },
+            mono: {
+               value: `"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace`,
+            },
          },
       },
-      // Layer styles — reusable background/border/shadow combinations
+      semanticTokens: {
+         colors: {
+            // Archival paper and ink — resolved from the about-site CSS vars.
+            bg: { value: "var(--about-paper)" },
+            "bg.subtle": { value: "var(--about-surface)" },
+            "bg.muted": { value: "var(--about-surface-sunk)" },
+            "bg.panel": { value: "var(--about-surface)" },
+            fg: { value: "var(--about-ink)" },
+            "fg.muted": { value: "var(--about-ink-soft)" },
+            "fg.subtle": { value: "var(--about-ink-faint)" },
+            border: { value: "var(--about-rule)" },
+            "border.muted": { value: "var(--about-rule-soft)" },
+            "border.subtle": { value: "var(--about-rule-soft)" },
+            "border.emphasized": { value: "var(--about-rule-strong)" },
+            ring: { value: "var(--about-patina)" },
+            // One accent, used sparingly: seal wax for actions, patina for structure.
+            accent: { value: "var(--about-seal)" },
+            "accent.muted": { value: "var(--about-patina)" },
+            "on.accent": { value: "var(--about-on-seal)" },
+         },
+      },
+      // Layer styles — reusable background/border combinations
       layerStyles: {
          card: {
-            bg: "transparent",
+            bg: "bg.subtle",
             border: "1px solid",
-            borderColor: "aboutBorder",
-            borderRadius: "2px",
-            boxShadow: "0 12px 32px -8px rgba(7, 54, 66, 0.06)",
-            _dark: {
-               boxShadow: "0 12px 32px -8px rgba(226, 232, 240, 0.06)",
-            },
+            borderColor: "border.muted",
+            borderRadius: "3px",
+            boxShadow: "none",
          },
          cardOutlined: {
             bg: "transparent",
             border: "1px solid",
-            borderColor: "aboutBorder",
-            borderRadius: "2px",
+            borderColor: "border",
+            borderRadius: "3px",
             boxShadow: "none",
-            _dark: {
-               boxShadow: "none",
-            },
          },
          section: {
-            bg: "aboutBg",
-            _dark: {
-               bg: "aboutBg",
-            },
+            bg: "bg",
          },
       },
       // Text styles — reusable typography scales
       textStyles: {
          heading: {
             fontFamily: "heading",
-            fontWeight: "bold",
-            letterSpacing: "wider",
+            fontWeight: "semibold",
+            lineHeight: "1.15",
+            letterSpacing: "0.004em",
          },
          headingLg: {
             fontFamily: "heading",
-            fontWeight: "bold",
-            fontSize: { base: "4xl", md: "5xl", lg: "6xl" },
-            letterSpacing: "wider",
+            fontWeight: "semibold",
+            fontSize: { base: "2rem", md: "2.5rem", lg: "2.875rem" },
+            lineHeight: "1.1",
          },
          headingMd: {
             fontFamily: "heading",
-            fontWeight: "bold",
-            fontSize: { base: "3xl", md: "4xl", lg: "5xl" },
-            letterSpacing: "wider",
+            fontWeight: "semibold",
+            fontSize: { base: "1.5rem", md: "1.875rem", lg: "2.25rem" },
+            lineHeight: "1.12",
          },
          headingSm: {
             fontFamily: "heading",
             fontWeight: "semibold",
-            fontSize: "xl",
-            letterSpacing: "wider",
+            fontSize: "1.3125rem",
+            lineHeight: "1.2",
          },
          body: {
             fontFamily: "body",
-            lineHeight: "relaxed",
+            lineHeight: "1.65",
          },
          bodyLg: {
             fontFamily: "body",
             fontSize: "lg",
-            lineHeight: "relaxed",
+            lineHeight: "1.7",
          },
          bodySm: {
             fontFamily: "body",
             fontSize: "sm",
-            lineHeight: "relaxed",
+            lineHeight: "1.65",
          },
          mono: {
             fontFamily: "mono",
@@ -104,5 +120,3 @@ export const aboutSystem = createSystem(defaultSystem._config, {
       },
    },
 });
-
-export type AboutSystem = typeof aboutSystem;

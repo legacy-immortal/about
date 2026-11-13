@@ -263,9 +263,10 @@ test.describe("WebGL graceful degradation", () => {
    test("2D SVG fallback renders when WebGL forced off", async ({ page }) => {
       await page.goto("/?spiral=2d");
 
-      // The 2D fallback should render an SVG element
-      const svg = page.locator("svg");
-      await expect(svg).toBeVisible();
+      // The hero shell falls back to an SVG spiral. Scope the lookup to the
+      // hero so icon markup elsewhere on the page cannot satisfy it.
+      const shell = page.locator("[data-hero-spiral] svg");
+      await expect(shell).toBeVisible();
 
       // The 3D Canvas should NOT be present when forced to 2D
       const canvasCount = await page.locator("canvas").count();
@@ -308,9 +309,11 @@ test.describe("WebGL graceful degradation", () => {
       await page.goto("/?spiral=2d");
 
       // The SVG fallback should contain path elements for the spiral
-      const spiralPaths = page.locator("svg path");
+      const shell = page.locator("[data-hero-spiral] svg");
+      await expect(shell).toBeVisible();
+      const spiralPaths = shell.locator("path");
       const count = await spiralPaths.count();
-      expect(count).toBeGreaterThan(0);
+      expect(count).toBeGreaterThan(3);
    });
 });
 

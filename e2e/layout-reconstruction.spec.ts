@@ -483,10 +483,12 @@ test.describe("WebGL graceful degradation — screenshot reference: 09-41-18 (sp
       await page.goto("/?spiral=2d");
       await page.waitForLoadState("networkidle");
 
-      const spiralSvg = page.locator("svg").filter({ has: page.locator("path") });
+      // Scoped to the hero shell: the fallback is the spiral, not any SVG
+      // that happens to sit elsewhere on the page.
+      const spiralSvg = page.locator("[data-hero-spiral] svg");
       await expect(spiralSvg.first()).toBeVisible();
 
-      const spiralPaths = page.locator("svg path");
+      const spiralPaths = spiralSvg.first().locator("path");
       const count = await spiralPaths.count();
       expect(count).toBeGreaterThan(3);
 

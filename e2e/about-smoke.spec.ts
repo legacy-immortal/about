@@ -4,7 +4,7 @@
  * Runs against the local Vite dev server (http://localhost:5173/).
  * This suite belongs to the `about` project and is
  * executed via `bun run test:e2e` from this repo — not from the
- * adjacent `legacyimmortal-app` project.
+ * adjacent `app` project.
  */
 
 import { expect, test } from "@playwright/test";

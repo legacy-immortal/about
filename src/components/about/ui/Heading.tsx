@@ -8,10 +8,15 @@ export interface AboutHeadingProps extends Omit<ChakraHeadingProps, "as"> {
    children: ReactNode;
    className?: string;
    as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-   /** Always serif for headings — matches the logo typeface */
+   /** Serif is the default; set false to inherit the body face. */
    serif?: boolean;
 }
 
+/**
+ * Every heading on the about site is set in Crimson Text — the serif carries
+ * the "estate ledger" voice. Sizes come from the caller so the h1 → h2 → h3
+ * hierarchy stays explicit.
+ */
 export function AboutHeading({
    children,
    className,
@@ -24,6 +29,7 @@ export function AboutHeading({
          as={as}
          className={className ? `about-heading ${className}` : "about-heading"}
          fontFamily={serif ? "heading" : "body"}
+         fontWeight="semibold"
          {...props}
       >
          {children}
