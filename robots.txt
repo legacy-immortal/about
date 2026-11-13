@@ -1,0 +1,8 @@
+# Legacy Immortal robots.txt
+# Allow crawling of the public about page.
+# Block nothing — this is a public marketing site.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://legacyimmortal.com/about/sitemap.xml
