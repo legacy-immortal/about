@@ -6,7 +6,7 @@ import { resolve } from "node:path";
 const pkgRoot = resolve(__dirname);
 
 export default defineConfig({
-   base: "/about/",
+   base: "/",
    plugins: [
       TanStackRouterVite({
          target: "react",

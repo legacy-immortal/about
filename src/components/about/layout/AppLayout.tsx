@@ -21,8 +21,16 @@ const HEADER_OFFSET = "4.5rem";
 export function AppLayout({ children }: AppLayoutProps) {
    return (
       <div data-about-site="">
+         {/* Skip link — keyboard users bypass the header and jump straight to main content. */}
+         <a
+            href="#main-content"
+            className="skip-link"
+            tabIndex={0}
+         >
+            Skip to content
+         </a>
          <Header />
-         <main style={{ flex: 1, minHeight: "100vh", paddingTop: HEADER_OFFSET }}>{children}</main>
+         <main id="main-content" style={{ flex: 1, minHeight: "100vh", paddingTop: HEADER_OFFSET }}>{children}</main>
          <Footer />
       </div>
    );
