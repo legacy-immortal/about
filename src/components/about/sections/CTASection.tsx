@@ -4,7 +4,7 @@ import { Box, Container, VStack } from "@chakra-ui/react";
 import { AboutHeading } from "../ui/Heading";
 import { AboutText } from "../ui/Text";
 import { Button } from "../ui/Button";
-import { loadContent, readString } from "../lib/contentLoader";
+import { EARLY_ACCESS_ENABLED, loadContent, readString } from "../lib/contentLoader";
 import { stripFleuron } from "../lib/fleuron";
 
 const content = loadContent();
@@ -13,8 +13,12 @@ const cta = content.cta?.frontmatter;
 export function CTASection() {
    const title = readString(cta, "title", "Build Your Legacy ❧");
    const description = readString(cta, "description", "");
-   const buttonText = stripFleuron(readString(cta, "buttonText", "Get invite keys"));
-   const buttonHref = readString(cta, "buttonHref", "#invitation");
+   const buttonText = EARLY_ACCESS_ENABLED
+      ? stripFleuron(readString(cta, "buttonText", "Get invite keys"))
+      : "View pricing";
+   const buttonHref = EARLY_ACCESS_ENABLED
+      ? readString(cta, "buttonHref", "#invitation")
+      : "#pricing";
 
    return (
       <Box as="section" id="cta" className="section">

@@ -8,6 +8,7 @@ import { HeroSection } from "./sections/Hero/HeroSection";
 import { InvitationSection } from "./sections/Invitation/InvitationSection";
 import { PricingSection } from "./sections/PricingSection";
 import { WhatWeAreNotSection } from "./sections/WhatWeAreNotSection";
+import { EARLY_ACCESS_ENABLED } from "./lib/contentLoader";
 
 export function AboutHomePage() {
    return (
@@ -16,7 +17,7 @@ export function AboutHomePage() {
          <FeaturesSection />
          <ConceptSection />
          <WhatWeAreNotSection />
-         <InvitationSection />
+         {EARLY_ACCESS_ENABLED ? <InvitationSection /> : null}
          <PricingSection />
          <CTASection />
       </AppLayout>

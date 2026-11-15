@@ -84,6 +84,24 @@ const rawFiles: Record<string, string> = {
    "what-we-are-not": whatWeAreNotMd,
 };
 
+function parseBoolEnv(value: unknown): boolean | undefined {
+   if (typeof value !== "string") {
+      return undefined;
+   }
+   const normalized = value.trim().toLowerCase();
+   if (normalized === "true" || normalized === "1") {
+      return true;
+   }
+   if (normalized === "false" || normalized === "0") {
+      return false;
+   }
+   return undefined;
+}
+
+/** Feature flag for the early access / alpha invitation flow. Defaults to enabled. */
+export const EARLY_ACCESS_ENABLED: boolean =
+   parseBoolEnv(import.meta.env?.VITE_EARLY_ACCESS_ENABLED) ?? true;
+
 /**
  * Load all markdown content files.
  * Returns a map of filename (without extension) to parsed content.

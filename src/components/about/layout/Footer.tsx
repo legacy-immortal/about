@@ -1,6 +1,7 @@
 "use client";
 
 import { Box, Container, Flex, Link, List, SimpleGrid, Text } from "@chakra-ui/react";
+import { EARLY_ACCESS_ENABLED } from "../lib/contentLoader";
 
 const BRAND_NAME = "Legacy Immortal";
 const BRAND_INITIALS = "LI";
@@ -14,7 +15,7 @@ const PRODUCT_LINKS = [
    { label: "Concept", href: "#concept" },
    { label: "Principles", href: "#what-we-are" },
    { label: "Pricing", href: "#pricing" },
-   { label: "Early Access", href: "#invitation" },
+   ...(EARLY_ACCESS_ENABLED ? [{ label: "Early Access", href: "#invitation" }] : []),
 ] as const;
 
 export function Footer() {

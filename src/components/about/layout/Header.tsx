@@ -5,11 +5,12 @@ import { Link as RouterLink, useRouterState } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { Button } from "../ui/Button";
 import ThemeSwitcher from "../ui/ThemeSwitcher";
+import { EARLY_ACCESS_ENABLED } from "../lib/contentLoader";
 
 const BRAND_NAME = "Legacy Immortal";
 const BRAND_INITIALS = "LI";
-const CTA_TEXT = "Get invite keys";
-const CTA_HREF = "#invitation";
+const CTA_TEXT = EARLY_ACCESS_ENABLED ? "Get invite keys" : "View pricing";
+const CTA_HREF = EARLY_ACCESS_ENABLED ? "#invitation" : "#pricing";
 
 const ABOUT_PATH = "/";
 
@@ -18,7 +19,7 @@ const NAV_LINKS = [
    { label: "Concept", href: "#concept" },
    { label: "Principles", href: "#what-we-are" },
    { label: "Pricing", href: "#pricing" },
-   { label: "Early Access", href: "#invitation" },
+   ...(EARLY_ACCESS_ENABLED ? [{ label: "Early Access", href: "#invitation" }] : []),
 ] as const;
 
 export function Header() {

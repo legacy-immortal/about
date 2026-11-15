@@ -5,7 +5,7 @@ import { Box, Container, Grid, GridItem, HStack, VStack } from "@chakra-ui/react
 import { Button } from "../../ui/Button";
 import { AboutHeading } from "../../ui/Heading";
 import { AboutText } from "../../ui/Text";
-import { loadContent, readString } from "../../lib/contentLoader";
+import { EARLY_ACCESS_ENABLED, loadContent, readString } from "../../lib/contentLoader";
 import { stripFleuron } from "../../lib/fleuron";
 
 const NautilusShell = lazy(() => import("./NautilusShell"));
@@ -17,8 +17,12 @@ export function HeroSection() {
    const title = readString(hero, "title", "Legacy Immortal ❧");
    const subtitle = readString(hero, "subtitle", "Your digital life, preserved — forever.");
    const description = readString(hero, "description", "");
-   const primaryText = stripFleuron(readString(hero, "primaryButtonText", "Get early access"));
-   const primaryHref = readString(hero, "primaryButtonHref", "#invitation");
+   const primaryText = EARLY_ACCESS_ENABLED
+      ? stripFleuron(readString(hero, "primaryButtonText", "Get early access"))
+      : "View pricing";
+   const primaryHref = EARLY_ACCESS_ENABLED
+      ? readString(hero, "primaryButtonHref", "#invitation")
+      : "#pricing";
    const secondaryText = stripFleuron(
       readString(hero, "secondaryButtonText", "See how it works"),
    );

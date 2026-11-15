@@ -9,7 +9,7 @@ import { AboutHeading } from "../ui/Heading";
 import { AboutText } from "../ui/Text";
 import { SectionIntro } from "../ui/SectionIntro";
 import { scrollToSection } from "../lib/scrollToSection";
-import { loadContent, readPlans, readString, type PlanData } from "../lib/contentLoader";
+import { EARLY_ACCESS_ENABLED, loadContent, readPlans, readString, type PlanData } from "../lib/contentLoader";
 
 const content = loadContent();
 const pricing = content.pricing?.frontmatter;
@@ -52,7 +52,7 @@ function PricingCard({ data }: PricingCardProps) {
                      variant={isRecommended ? "primary" : "outline"}
                      size="md"
                      width="100%"
-                     onClick={() => scrollToSection("invitation")}
+                     onClick={() => scrollToSection(EARLY_ACCESS_ENABLED ? "invitation" : "pricing")}
                   >
                      {data.callToAction}
                   </Button>
@@ -106,7 +106,11 @@ export function PricingSection() {
                            {readString(pricing, "customPlanDescription", "")}
                         </AboutText>
                      </VStack>
-                     <Button href="#invitation" variant="outline" size="md">
+                     <Button
+                        href={EARLY_ACCESS_ENABLED ? "#invitation" : "#cta"}
+                        variant="outline"
+                        size="md"
+                     >
                         {readString(pricing, "customPlanCta", "Reach out")}
                      </Button>
                   </Flex>
