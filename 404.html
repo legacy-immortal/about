@@ -4,12 +4,29 @@
       <meta charset="UTF-8" />
       <title>Legacy Immortal</title>
       <script>
-         // SPA fallback for GitHub Pages
-         const path = window.location.pathname;
-         const base = "/about/";
-         if (path !== base && !path.startsWith(base + "assets")) {
-            window.location.replace(base);
-         }
+         // SPA fallback for GitHub Pages project site: preserve path/query/hash.
+         // https://github.com/rafgraph/spa-github-pages
+         (function (l) {
+            var base = "/about/";
+            if (l.pathname.startsWith(base + "assets/")) return;
+            var pathSegmentsToKeep = 1; // /about
+            l.replace(
+               l.protocol +
+                  "//" +
+                  l.hostname +
+                  (l.port ? ":" + l.port : "") +
+                  l.pathname.split("/").slice(0, 1 + pathSegmentsToKeep).join("/") +
+                  "/?/" +
+                  l.pathname
+                     .slice(1)
+                     .split("/")
+                     .slice(pathSegmentsToKeep)
+                     .join("/")
+                     .replace(/&/g, "~and~") +
+                  (l.search ? "&" + l.search.slice(1).replace(/&/g, "~and~") : "") +
+                  l.hash
+            );
+         })(window.location);
       </script>
    </head>
    <body></body>
