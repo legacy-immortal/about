@@ -13,25 +13,38 @@
          content="A self-sovereign archive for your memories, stories, and digital assets. Signed by you, replicated to peers you trust, and readable long after any single server is gone."
       />
       <meta property="og:type" content="website" />
-      <meta
-         property="og:url"
-         content="https://legacyimmortal.com/about/"
-      />
+      <meta property="og:url" content="https://legacyimmortal.com/about/" />
       <meta property="og:image" content="https://legacyimmortal.com/about/assets/og-image.png" />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta property="og:image:type" content="image/png" />
+      <link rel="canonical" href="https://legacyimmortal.com/about/" />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content="Legacy Immortal" />
+      <meta name="twitter:image" content="https://legacyimmortal.com/about/assets/og-image.png" />
       <meta
          name="twitter:description"
          content="A self-sovereign archive for your memories, stories, and digital assets."
       />
       <title>Legacy Immortal</title>
       <script>
-         // SPA fallback for GitHub Pages
-         const path = window.location.pathname;
-         const base = "/about/";
-         if (path !== base && !path.startsWith(base + "assets")) {
-            window.location.replace(base);
-         }
+         // Restore client-side route encoded by public/404.html (spa-github-pages).
+         (function (l) {
+            if (l.search[1] === "/") {
+               var decoded = l.search
+                  .slice(1)
+                  .split("&")
+                  .map(function (s) {
+                     return s.replace(/~and~/g, "&");
+                  })
+                  .join("?");
+               window.history.replaceState(
+                  null,
+                  null,
+                  l.pathname.slice(0, -1) + decoded + l.hash
+               );
+            }
+         })(window.location);
       </script>
    </head>
    <body>

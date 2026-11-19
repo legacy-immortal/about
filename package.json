@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && bun scripts/check-built-assets.mjs",
+    "check:build-assets": "bun scripts/check-built-assets.mjs",
     "preview": "vite preview",
     "deploy": "gh-pages -d dist --nojekyll",
     "test:midscene": "bun test tests/midscene/suites",
