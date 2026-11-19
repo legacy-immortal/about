@@ -17,7 +17,10 @@ export default defineConfig({
    timeout: 90_000,
    expect: { timeout: 15_000 },
    use: {
-      baseURL: (process.env.PLAYWRIGHT_BASE_URL ?? "http://localhost:5173").replace(/\/$/, ""),
+      baseURL: (process.env.PLAYWRIGHT_BASE_URL ?? "http://localhost:5173/about/").replace(
+         /\/?$/,
+         "/"
+      ),
       trace: "on-first-retry",
       viewport: { width: 1280, height: 720 },
    },

@@ -99,13 +99,15 @@ jobs:
 
       - name: Serve dist locally and run E2E tests
         env:
-          PLAYWRIGHT_BASE_URL: http://localhost:8080
+          PLAYWRIGHT_BASE_URL: http://localhost:8080/about/
         run: |
-          bunx http-server dist -p 8080 &
+          mkdir -p .site-root/about
+          cp -a dist/. .site-root/about/
+          bunx http-server .site-root -p 8080 &
           SERVER_PID=$!
           trap 'kill $SERVER_PID 2>/dev/null || true' EXIT
           for i in $(seq 1 30); do
-            if curl -fsS http://localhost:8080 >/dev/null 2>&1; then
+            if curl -fsS http://localhost:8080/about/ >/dev/null 2>&1; then
               break
             fi
             sleep 1
